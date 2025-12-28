@@ -479,7 +479,7 @@ function displayEffects(characterKey) {
             }
             if (roll.curseNum) {
                 const curseIndex = roll.curseNum - 1;
-                html += `<a href="#curse-${curseIndex}" onclick="showCurseModal(${curseIndex}); return false;" class="link-button">🎲 View Curse #${roll.curseNum}</a>`;
+                html += `<a href="#curse-${curseIndex}" onclick="showCurseModal(${curseIndex}); return false;" class="link-button">🎲 View Curse</a>`;
             }
         });
         
