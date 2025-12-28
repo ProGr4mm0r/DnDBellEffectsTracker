@@ -283,7 +283,7 @@ function showEffects(characterKey) {
                 html += `<div class="custom-note">+2 to ${roll.abilityGain}</div>`;
             }
             if (roll.abilityLoss) {
-                html += `<div class="custom-note">-${roll.lossAmount || '1'} to ${roll.abilityLoss}</div>`;
+                html += `<div class="custom-note">-${roll.lossAmount * 2 || '2'} to ${roll.abilityLoss}</div>`;
             }
             if (roll.curseNum) {
                 html += `<div class="custom-note">🎲 Curse #${roll.curseNum}</div>`;
