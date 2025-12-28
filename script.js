@@ -23,12 +23,14 @@ const bellEffects = {
     6: {
         type: 'negative',
         text: 'A random magic item carried by the party has a 1d4 chance to lose all magic.',
-        stackRule: 'When stacked another breaks.'
+        stackRule: 'When stacked another breaks.',
+        stackCalc: (count) => `Approx. magic items lost: ${count} (one additional item broken per stack)`
     },
     7: {
         type: 'negative',
         text: 'Powerful creatures instinctively distrust or target them.',
-        stackRule: 'When stacked they distrust more.'
+        stackRule: 'When stacked they distrust more.',
+        stackCalc: (count) => `Distrust intensity: +${count} (use DM fiat to scale social/hostile reactions)`
     },
     8: {
         type: 'negative',
@@ -39,7 +41,8 @@ const bellEffects = {
     9: {
         type: 'negative',
         text: 'PC ages 1d20 years instantly.',
-        stackRule: 'When stacked they gain more age. It is fully cosmetic; they will not lose any time before they die.'
+        stackRule: 'When stacked they gain more age. It is fully cosmetic; they will not lose any time before they die.',
+        stackCalc: (count) => `Total age gain: roll ${count}d20 years (roll separately for each stack)`
     },
     10: {
         type: 'negative',
@@ -60,12 +63,14 @@ const bellEffects = {
         type: 'mixed',
         text: 'Gain a feat (DM chooses). Lose 1 from an ability score (DM chooses).',
         stackRule: 'Gets another feat and loses another point in a score when rolled again.',
-        requiresCustom: ['feat', 'abilityLoss']
+        requiresCustom: ['feat', 'abilityLoss'],
+        stackCalc: (count) => `Feats gained: ${count}, Ability points permanently lost: ${count}`
     },
     14: {
         type: 'mixed',
         text: 'Once per day, reroll a failed roll. Next save that day has disadvantage.',
-        stackRule: 'If stacked then only one of them is permanent and the rest is until the end of the session.'
+        stackRule: 'If stacked then only one of them is permanent and the rest is until the end of the session.',
+        stackCalc: (count) => `Permanent daily rerolls: 1; Temporary (session) rerolls: ${Math.max(0, count - 1)}`
     },
     15: {
         type: 'mixed',
@@ -80,7 +85,8 @@ const bellEffects = {
     17: {
         type: 'mixed',
         text: 'Ask DM one yes/no question. Lose proficiency in one skill permanently (PC\'s Choice). You can save your questions.',
-        stackRule: 'Cannot be stacked unless they used their question already.'
+        stackRule: 'Cannot be stacked unless they used their question already.',
+        stackCalc: (count) => `Questions granted (usable overall): ${count}; Proficiencies lost: ${count}`
     },
     18: {
         type: 'positive',
@@ -91,7 +97,8 @@ const bellEffects = {
     19: {
         type: 'positive',
         text: 'Non Ranged Weapons deal +1d4 thunder damage permanently.',
-        stackRule: 'If stacked then only one of them is permanent and the rest is until the end of the session.'
+        stackRule: 'If stacked then only one of them is permanent and the rest is until the end of the session.',
+        stackCalc: (count) => `Permanent +1d4 to weapons: 1; Temporary (session) bonuses: ${Math.max(0, count - 1)}`
     },
     20: {
         type: 'positive',
@@ -114,23 +121,27 @@ const bellEffects = {
         type: 'positive',
         text: 'Spell Echo: Gain one 2nd–3rd level spell, 1/day (DM chooses).',
         stackRule: 'Stacked normally.',
-        requiresCustom: ['spell']
+        requiresCustom: ['spell'],
+        stackCalc: (count) => `Total extra spells known (2nd–3rd, 1/day): ${count}`
     },
     24: {
         type: 'powerful',
         text: 'Once per day, can\'t drop below 1 HP. Afterward, Frightened for 1 minute.',
-        stackRule: 'If stacked then only one of them is permanent and the rest is until the end of the session.'
+        stackRule: 'If stacked then only one of them is permanent and the rest is until the end of the session.',
+        stackCalc: (count) => `Permanent \"can\'t drop below 1HP\" effects: 1; Session-limited: ${Math.max(0, count - 1)}`
     },
     25: {
         type: 'powerful',
         text: 'Once per session force a reroll. DM may do the same later.',
-        stackRule: 'If stacked then only one of them is permanent and the rest is until the end of the session.'
+        stackRule: 'If stacked then only one of them is permanent and the rest is until the end of the session.',
+        stackCalc: (count) => `Permanent forced rerolls: 1; Session-limited forced rerolls: ${Math.max(0, count - 1)}`
     },
     26: {
         type: 'powerful',
         text: '+2 to one ability (max 24) (DM chooses). –2 to another permanently (DM chooses).',
         stackRule: 'Stacked normally.',
-        requiresCustom: ['abilityGain', 'abilityLoss']
+        requiresCustom: ['abilityGain', 'abilityLoss'],
+        stackCalc: (count) => `Total ability gains (+2 each): ${count * 2}; Total permanent ability losses (−2 each): ${count * 2}`
     },
     27: {
         type: 'powerful',
@@ -142,7 +153,8 @@ const bellEffects = {
         type: 'disaster',
         text: 'The PC who rang takes 4d10 necrotic damage and gains a minor curse from goofy ahh curse list.',
         stackRule: 'Stacked normally.',
-        hasLink: true
+        hasLink: true,
+        stackCalc: (count) => `Total necrotic damage if stacked: ${count * 4}d10 (separate rolls)`
     },
     29: {
         type: 'disaster',
@@ -156,365 +168,422 @@ const bellEffects = {
         stackRule: 'Cannot be stacked.'
     },
 
+    // NEW: 31–100 (unique & varied)
     31: {
         type: 'negative',
-        text: 'PC permanently loses proficiency in one saving throw (DM chooses).',
-        stackRule: 'Cannot be stacked.'
+        text: 'All healing on the party is halved (round down) for the next 7 days.',
+        stackRule: 'When stacked extend duration.',
+        stackCalc: (count) => `Duration: ${7 * count} days of halved healing`
     },
     32: {
         type: 'negative',
-        text: 'PC gains disadvantage on their first roll of every session.',
-        stackRule: 'Cannot be stacked.'
+        text: 'Your shadow detaches and follows a different path for 24 hours — grants enemies advantage on tracking you.',
+        stackRule: 'When stacked extend duration and increase tracking penalty.',
+        stackCalc: (count) => `Duration: ${24 * count} hours; Tracking penalty: advantage if count ≥ 1 (DM scales)`
     },
     33: {
         type: 'negative',
-        text: 'PC permanently loses one attunement slot.',
-        stackRule: 'Cannot be stacked.'
+        text: 'All coinpurses you carry gain a small hole: each time you rest you lose 1 gp (if you have any).',
+        stackRule: 'When stacked increase the gp lost per long rest.',
+        stackCalc: (count) => `GP lost per long rest: ${count} gp`
     },
     34: {
         type: 'negative',
-        text: 'PC can no longer gain inspiration.',
+        text: 'Your hands glow faintly when you touch blood, revealing you in darkness.',
         stackRule: 'Cannot be stacked.'
     },
     35: {
         type: 'negative',
-        text: 'All healing received by the PC is reduced by 2.',
-        stackRule: 'When stacked, healing reduction increases.',
-        stackCalc: (count) => `Healing reduced by ${count * 2}`
+        text: 'You gain a visible sigil on your forehead. Detectable by magic that reads identity (scrying easier).',
+        stackRule: 'Stacked marks intensify detection.',
+        stackCalc: (count) => `Scrying penalty for others: −${count} to resist detection (DM-modified)`
     },
     36: {
         type: 'negative',
-        text: 'PC permanently gains disadvantage on death saving throws.',
-        stackRule: 'Cannot be stacked.'
+        text: 'All ranged attacks you make have −1 to attack rolls.',
+        stackRule: 'When stacked increase penalty.',
+        stackCalc: (count) => `Total ranged penalty: −${count} to attack rolls`
     },
     37: {
-        type: 'negative',
-        text: 'PC’s carrying capacity is halved permanently.',
-        stackRule: 'Cannot be stacked.'
+        type: 'mixed',
+        text: 'Once per long rest, you may communicate telepathically with one creature within 60 ft for 1 minute. Others hear whispers afterward (minor social penalty).',
+        stackRule: 'Stacked increase uses per long rest.',
+        stackCalc: (count) => `Telepathic uses per long rest: ${count}`
     },
     38: {
-        type: 'negative',
-        text: 'PC cannot benefit from Help actions.',
-        stackRule: 'Cannot be stacked.'
+        type: 'mixed',
+        text: 'Gain proficiency in one tool of your choice. Each time you use it in a creative way, roll advantage but suffer a minor (1) temporary penalty afterward.',
+        stackRule: 'Stacked grant multiple proficiencies.',
+        stackCalc: (count) => `Tool proficiencies gained: ${count}`
     },
     39: {
-        type: 'negative',
-        text: 'PC loses resistance to one damage type they currently have.',
-        stackRule: 'When stacked, loses another resistance.'
+        type: 'mixed',
+        text: 'You can see invisible creatures for 10 minutes once per day; afterward you have disadvantage on Wisdom checks for 1 hour.',
+        stackRule: 'When stacked extend duration of vision but increase penalty duration.',
+        stackCalc: (count) => `See invisible duration: ${10 * count} minutes; Wisdom penalty duration: ${1 * count} hours`
     },
     40: {
-        type: 'negative',
-        text: 'PC permanently loses darkvision (if they had it).',
-        stackRule: 'Nothing happens if rolled again.'
+        type: 'positive',
+        text: 'A small magical trinket follows you and grants +1 to one chosen skill once per short rest.',
+        stackRule: 'When stacked grant more skills or more uses.',
+        stackCalc: (count) => `Per short rest uses: ${count}; Skills benefited: up to ${count}`
     },
-
     41: {
         type: 'mixed',
-        text: '+2 to one skill of choice. –2 to another skill of choice.',
-        stackRule: 'Stacked normally.'
+        text: 'Grant one single cast of the Wildmagic EX spell "Summon" (usable once by the ringing PC).',
+        stackRule: 'Cannot be stacked.',
     },
     42: {
-        type: 'mixed',
-        text: 'Advantage on saving throws vs magic. Disadvantage on non-magical saves.',
-        stackRule: 'Cannot be stacked.'
+        type: 'powerful',
+        text: 'For 24 hours, once per day you can reassign an enemy\'s single attack to another target (must be creature in range).',
+        stackRule: 'When stacked increase the number of reassigns per day.',
+        stackCalc: (count) => `Reassigns per day: ${count}`
     },
     43: {
-        type: 'mixed',
-        text: 'Once per session, ignore difficult terrain. Speed is reduced by 5 permanently.',
-        stackRule: 'Cannot be stacked.'
+        type: 'powerful',
+        text: 'Your weapons become silvered and count as magical for 1 hour.',
+        stackRule: 'When stacked extend duration.',
+        stackCalc: (count) => `Duration: ${1 * count} hour(s)`
     },
     44: {
-        type: 'mixed',
-        text: 'Gain blindsight 5 ft. Become vulnerable to psychic damage.',
-        stackRule: 'Cannot be stacked.'
+        type: 'positive',
+        text: 'Gain a minor familiar (owl/cat/bat) that can deliver spoken messages once per day.',
+        stackRule: 'When stacked the familiar grows more useful: more messages per day.',
+        stackCalc: (count) => `Messages per day: ${count}`
     },
     45: {
-        type: 'mixed',
-        text: 'Once per day, auto-crit on a hit. Next long rest gives no benefits.',
-        stackRule: 'Cannot be stacked.'
+        type: 'positive',
+        text: 'You learn one language of your choice.',
+        stackRule: 'Stacked grant more languages.',
+        stackCalc: (count) => `Languages learned: ${count}`
     },
     46: {
         type: 'mixed',
-        text: 'Immune to fear. Automatically fail the first charm save each session.',
-        stackRule: 'Cannot be stacked.'
+        text: 'Your footsteps are silent for 1 hour, but you leave faint glowing footprints visible to arcane watchers.',
+        stackRule: 'When stacked extend duration and intensity of footprints.',
+        stackCalc: (count) => `Silent duration: ${1 * count} hour(s); Footprint visibility: increases with count (DM)`
     },
     47: {
-        type: 'mixed',
-        text: '+1 AC permanently. –1 to all saving throws.',
-        stackRule: 'Stacked normally.'
+        type: 'negative',
+        text: 'Whenever you cast a cantrip, roll a d6: on a 1 the cantrip fizzles and you take 1 psychic damage.',
+        stackRule: 'When stacked increase fizzles per day.',
+        stackCalc: (count) => `Additional daily fizzles: ${count - 1} (DM tracks)`
     },
     48: {
-        type: 'mixed',
-        text: 'Gain advantage on Perception. Disadvantage on Insight.',
-        stackRule: 'Cannot be stacked.'
+        type: 'negative',
+        text: 'Your hair grows rapidly and requires a free object interaction to tame each morning.',
+        stackRule: 'Stacked require more interactions per morning.',
+        stackCalc: (count) => `Free interactions needed each morning: ${count}`
     },
     49: {
-        type: 'mixed',
-        text: 'Once per session, turn a miss into a hit. Take 1d10 force damage.',
-        stackRule: 'Stacked normally.'
+        type: 'positive',
+        text: 'You gain the ability to speak with one type of animal (DM chooses) for 7 days.',
+        stackRule: 'Stacked extend duration and add animal types.',
+        stackCalc: (count) => `Days: ${7 * count}; Animal types: ${count}`
     },
     50: {
-        type: 'mixed',
-        text: 'Gain one extra reaction per day. Lose your reaction on round one of combat.',
-        stackRule: 'Cannot be stacked.'
+        type: 'powerful',
+        text: 'Once per day you may teleport up to 30 ft as a bonus action (short blink).',
+        stackRule: 'Stacked increase uses per day.',
+        stackCalc: (count) => `Teleports per day: ${count}`
     },
-
     51: {
-        type: 'positive',
-        text: '+1 to all saving throws.',
-        stackRule: 'When stacked, increases normally.',
-        stackCalc: (count) => `Total save bonus: +${count}`
+        type: 'mixed',
+        text: 'You gain a faint spectral shield: +1 AC vs ranged attacks for 24 hours; after shield fails once it shatters and causes -1 to Int until long rest.',
+        stackRule: 'When stacked increase AC and number of shatter events.',
+        stackCalc: (count) => `AC bonus vs ranged: +${count}; Shatter events before exhaustion: ${count}`
     },
     52: {
-        type: 'positive',
-        text: '+10 ft movement speed permanently.',
-        stackRule: 'Stacked normally.',
-        stackCalc: (count) => `Total speed bonus: +${count * 10} ft`
+        type: 'negative',
+        text: 'Your voice echoes oddly; attempts at stealth where you speak have −2 until cured.',
+        stackRule: 'Stacked increase penalty.',
+        stackCalc: (count) => `Stealth speaking penalty: −${2 * count}`
     },
     53: {
         type: 'positive',
-        text: 'Regain one spent hit die at the start of every session.',
-        stackRule: 'Cannot be stacked.'
+        text: 'Once per long rest, you may reroll one skill check and take the higher result.',
+        stackRule: 'Stacked increase rerolls per long rest.',
+        stackCalc: (count) => `Rerolls per long rest: ${count}`
     },
     54: {
-        type: 'positive',
-        text: 'Choose one damage type: gain resistance.',
-        stackRule: 'When stacked, choose another damage type.'
+        type: 'negative',
+        text: 'All food tastes bland to you; you gain no benefit from special meal bonuses for 3 days.',
+        stackRule: 'Stacked extend duration.',
+        stackCalc: (count) => `Duration: ${3 * count} days`
     },
     55: {
-        type: 'positive',
-        text: '+1 to spell save DC.',
-        stackRule: 'Stacked normally.',
-        stackCalc: (count) => `Total spell DC bonus: +${count}`
+        type: 'mixed',
+        text: 'Your footsteps leave tiny arcane sigils that heal allies who step on them for 1 hp once, lasting 1 day.',
+        stackRule: 'Stacked increase number of sigils placed per day.',
+        stackCalc: (count) => `Sigils per day: ${count}`
     },
     56: {
         type: 'positive',
-        text: 'Once per day, gain advantage on all rolls for one round.',
-        stackRule: 'Cannot be stacked.'
+        text: 'Your critical hit range increases by 1 (e.g., 19–20) for 24 hours.',
+        stackRule: 'Stacked increase critical range up to 17–20.',
+        stackCalc: (count) => `Critical range start: ${Math.max(20 - count, 17)} (min 17)`
     },
     57: {
-        type: 'positive',
-        text: 'Gain proficiency in one saving throw (DM chooses).',
-        stackRule: 'Cannot be stacked.'
+        type: 'negative',
+        text: 'You become slightly magnetic: small metal objects cling to you causing disadvantage on Sleight of Hand.',
+        stackRule: 'When stacked increase penalty.',
+        stackCalc: (count) => `Sleight of Hand penalty: −${count}`
     },
     58: {
-        type: 'positive',
-        text: 'Critical hits deal max damage instead of rolling.',
-        stackRule: 'Cannot be stacked.'
+        type: 'mixed',
+        text: 'Gain the minor cantrip "Guiding Spark" (DM chooses damage/type). Once per short rest it can be heightened.',
+        stackRule: 'Stacked grant more uses or cantrips.',
+        stackCalc: (count) => `Cantrip uses per short rest: ${count}`
     },
     59: {
-        type: 'positive',
-        text: '+2 to death saving throws.',
-        stackRule: 'Cannot be stacked.'
+        type: 'powerful',
+        text: 'Receive a spectral banner: while planted it grants allies +1 to saving throws within 10 ft (30 minutes).',
+        stackRule: 'Stacked increase radius or duration.',
+        stackCalc: (count) => `Radius: ${10 * count} ft; Duration: ${30 * count} minutes`
     },
     60: {
-        type: 'positive',
-        text: 'Gain one extra attunement slot.',
-        stackRule: 'Cannot be stacked.'
+        type: 'disaster',
+        text: 'A small localized storm follows you for 1 day: rain, static, and random lightning crackles (harmless but draws attention).',
+        stackRule: 'Stacked increase duration.',
+        stackCalc: (count) => `Duration: ${24 * count} hours`
     },
-
     61: {
-        type: 'powerful',
-        text: 'Once per day, negate all damage from one source.',
-        stackRule: 'If stacked, extra uses last only this session.'
+        type: 'negative',
+        text: 'You cannot be healed above half your max HP for the next long rest.',
+        stackRule: 'When stacked lower the healing cap further.',
+        stackCalc: (count) => `Max healable fraction: ${Math.max(0.5 - (count - 1) * 0.1, 0.1)} of max HP`
     },
     62: {
-        type: 'powerful',
-        text: '+2 to AC until you are hit; then it ends permanently.',
-        stackRule: 'Cannot be stacked.'
+        type: 'positive',
+        text: 'Gain expertise (double proficiency) in one skill of your choice.',
+        stackRule: 'Stacked grant expertise in multiple skills.',
+        stackCalc: (count) => `Skills with expertise: ${count}`
     },
     63: {
-        type: 'powerful',
-        text: 'Once per session, act twice on your turn.',
-        stackRule: 'If stacked, extra uses last this session only.'
+        type: 'mixed',
+        text: 'Your hands can become spectral for 1 minute: you may pass through a nonmagical barrier once; afterward your hands ache giving −1 Str for 1 hour.',
+        stackRule: 'Stacked increase uses per day.',
+        stackCalc: (count) => `Uses per day: ${count}; Post-ache Str penalty duration: ${1 * count} hour(s)`
     },
     64: {
-        type: 'powerful',
-        text: 'Immune to one condition of your choice.',
-        stackRule: 'When stacked, choose another condition.'
+        type: 'negative',
+        text: 'When wearing armor you hum softly; stealth rolls with armor suffer −2.',
+        stackRule: 'Stacked increase penalty.',
+        stackCalc: (count) => `Armor stealth penalty: −${2 * count}`
     },
     65: {
-        type: 'powerful',
-        text: 'Once per day, automatically succeed any saving throw.',
-        stackRule: 'Cannot be stacked.'
+        type: 'positive',
+        text: 'Gain a +1 bonus to saves vs one damage type of your choice for 7 days.',
+        stackRule: 'Stacked allow more damage types or increase bonus.',
+        stackCalc: (count) => `Damage types covered: ${count}; Bonus per type: +1 (per stack)`
     },
     66: {
         type: 'powerful',
-        text: '+2 to one ability score (max 24).',
-        stackRule: 'Stacked normally.'
+        text: 'You may once per week call down a small flare that blinds (1 round) creatures in a 5-ft cone (Dex save DC 13).',
+        stackRule: 'Stacked increase weekly uses.',
+        stackCalc: (count) => `Flares per week: ${count}`
     },
     67: {
-        type: 'powerful',
-        text: 'Whenever you drop to 0 HP, immediately take one extra turn.',
-        stackRule: 'Cannot be stacked.'
+        type: 'mixed',
+        text: 'All locks you touch become easier to pick for 24 hours (+2 to Thieves´ Tools checks), but you glow faintly in moonlight.',
+        stackRule: 'Stacked increase bonus and glow intensity.',
+        stackCalc: (count) => `Tool bonus: +${2 * count}; Glow intensity: level ${count}`
     },
     68: {
-        type: 'powerful',
-        text: 'Spells ignore resistance.',
-        stackRule: 'Cannot be stacked.'
+        type: 'negative',
+        text: 'You constantly smell faintly of smoke; social checks in polite company suffer −1.',
+        stackRule: 'Stacked increase penalty.',
+        stackCalc: (count) => `Social penalty: −${count}`
     },
     69: {
-        type: 'powerful',
-        text: 'Weapon attacks ignore immunity and treat it as resistance.',
-        stackRule: 'Cannot be stacked.'
+        type: 'positive',
+        text: 'Once per long rest, you may stabilize an ally automatically without a roll.',
+        stackRule: 'Stacked increase automatic stabilizations per long rest.',
+        stackCalc: (count) => `Automatic stabilizations per long rest: ${count}`
     },
     70: {
         type: 'powerful',
-        text: 'You cannot die from failed death saves. Massive damage can still kill you.',
-        stackRule: 'Cannot be stacked.'
+        text: 'Your next crafted magic item gains a minor bonus determined by DM (+1 to attack or +1 to save DC).',
+        stackRule: 'Stacked add more minor bonuses.',
+        stackCalc: (count) => `Minor bonuses on next item: ${count}`
     },
-
     71: {
-        type: 'disaster',
-        text: 'PC immediately gains 3 permanent exhaustion levels.',
-        stackRule: 'Cannot be stacked.'
+        type: 'mixed',
+        text: 'You speak with echoes of future-you for 1 minute; gain a hint (DM gives). Afterward you gain a −1 penalty to Int checks for 24 hours.',
+        stackRule: 'Stacked increase number of hints but also penalty.',
+        stackCalc: (count) => `Hints available: ${count}; Int penalty duration: ${24 * count} hours`
     },
     72: {
-        type: 'disaster',
-        text: 'All gold carried by the party turns to dust.',
-        stackRule: 'Nothing happens if rolled again.'
+        type: 'negative',
+        text: 'Your map ink fades randomly; investigations with written notes have −2 for 24 hours.',
+        stackRule: 'Stacked increase penalty or duration.',
+        stackCalc: (count) => `Investigation penalty: −${2 * count}; Duration: ${24 * count} hours`
     },
     73: {
-        type: 'disaster',
-        text: 'A random PC permanently loses one class feature (DM chooses).',
-        stackRule: 'Cannot be stacked.'
+        type: 'positive',
+        text: 'For 48 hours you radiate a calming aura: one ally within 10 ft gains +2 to saves vs charm/fear.',
+        stackRule: 'Stacked increase range or number of allies.',
+        stackCalc: (count) => `Allies affected: ${count}; Range: ${10 * count} ft`
     },
     74: {
         type: 'disaster',
-        text: 'PC’s soul is marked; resurrection requires a DC 15 check.',
-        stackRule: 'When stacked, DC increases by 5.'
+        text: 'A minor planar rift opens nearby; harmless fey and spirits appear, causing social/puzzle chaos for 1 day.',
+        stackRule: 'Stacked increase frequency of odd encounters.',
+        stackCalc: (count) => `Rift days: ${count} day(s); Encounters scale with count`
     },
     75: {
-        type: 'disaster',
-        text: 'PC permanently loses access to one spell level (highest available).',
-        stackRule: 'Cannot be stacked.'
+        type: 'negative',
+        text: 'You lose short-term memory of one recent scene (1 hour) once per day; DM chooses which scene.',
+        stackRule: 'Stacked increase lost scenes.',
+        stackCalc: (count) => `Scenes forgotten per day: ${count}`
     },
     76: {
-        type: 'disaster',
-        text: 'PC becomes vulnerable to all damage for one session.',
-        stackRule: 'Nothing happens if rolled again.'
+        type: 'positive',
+        text: 'Your crafted nonmagical items are of superior quality: next 3 crafts have +2 to quality checks.',
+        stackRule: 'Stacked increase number of enhanced crafts.',
+        stackCalc: (count) => `Enhanced crafts: ${3 * count}`
     },
     77: {
-        type: 'disaster',
-        text: 'PC loses one death save permanently (now fails at 2).',
-        stackRule: 'Cannot be stacked.'
+        type: 'mixed',
+        text: 'You gain the ability to hold your breath for 10 × Con minutes, but your color drains slightly (disadvantage on Performance checks relying on appearance).',
+        stackRule: 'Stacked increase breath multiplier.',
+        stackCalc: (count) => `Breath hold multiplier: ${10 * count} × Con minutes; Performance penalty stacks: −${count}`
     },
     78: {
-        type: 'disaster',
-        text: 'A major NPC becomes a permanent enemy.',
-        stackRule: 'When stacked, enemy gains power.'
+        type: 'negative',
+        text: 'You attract small vermin (no mechanical damage) that are a persistent nuisance in confined spaces.',
+        stackRule: 'Stacked increase vermin number and nuisance impact.',
+        stackCalc: (count) => `Vermin level: ${count} (DM describes nuisance effects)`
     },
     79: {
-        type: 'disaster',
-        text: 'PC permanently loses one spell slot of each level.',
-        stackRule: 'Cannot be stacked.'
+        type: 'positive',
+        text: 'For one hour after resting you gain +2 to movement and dash costs no extra action once.',
+        stackRule: 'Stacked extend duration and bonus.',
+        stackCalc: (count) => `Duration: ${1 * count} hour(s); Bonus to movement: +${2 * count}`
     },
     80: {
-        type: 'disaster',
-        text: 'PC cannot benefit from long rests for the next 3 sessions.',
-        stackRule: 'Nothing happens if rolled again.'
+        type: 'powerful',
+        text: 'You may sacrifice a spell slot to grant an ally an immediate extra reaction (usable once per long rest).',
+        stackRule: 'Stacked increase uses per long rest.',
+        stackCalc: (count) => `Extra reactions per long rest: ${count}`
     },
-
     81: {
-        type: 'positive',
-        text: 'Remove one permanent negative effect from the PC.',
-        stackRule: 'Stacked normally.'
+        type: 'mixed',
+        text: 'A small familiar spirit offers cryptic advice once per day (+advantage on one chosen roll if you follow it, but you must accept a weird condition).',
+        stackRule: 'Stacked increase daily advices and odd conditions.',
+        stackCalc: (count) => `Advices per day: ${count}; Conditions tracked: ${count}`
     },
     82: {
-        type: 'positive',
-        text: 'Gain advantage on all saving throws for one full session.',
-        stackRule: 'Nothing happens if rolled again.'
+        type: 'negative',
+        text: 'Your footsteps echo heavy; stealth checks made while moving have disadvantage.',
+        stackRule: 'Stacked increase duration of effect.',
+        stackCalc: (count) => `Duration: ${24 * count} hours of moving disadvantage`
     },
     83: {
         type: 'positive',
-        text: 'Gain one extra feat (DM chooses).',
-        stackRule: 'Cannot be stacked.'
+        text: 'You gain a small hidden pocket that can carry 10 extra lbs without changing encumbrance.',
+        stackRule: 'Stacked increase capacity.',
+        stackCalc: (count) => `Extra capacity: ${10 * count} lbs`
     },
     84: {
-        type: 'positive',
-        text: 'Regain all spent spell slots immediately.',
-        stackRule: 'Nothing happens if rolled again.'
+        type: 'mixed',
+        text: 'Once per day: you can step through a 5-ft wide shadow into another adjacent shadow (short teleport), but you leave a small sigil where you reappear that can be tracked for 1 hour.',
+        stackRule: 'Stacked increase uses per day and sigil strength.',
+        stackCalc: (count) => `Shadow steps per day: ${count}; Sigil track time: ${1 * count} hour(s)`
     },
     85: {
-        type: 'positive',
-        text: 'Automatically succeed your next three rolls.',
-        stackRule: 'Cannot be stacked.'
+        type: 'negative',
+        text: 'Any time you attempt to pick something up in combat you must succeed a DC 10 Dex check or drop it.',
+        stackRule: 'Stacked increase DC or penalty frequency.',
+        stackCalc: (count) => `Pick-up DC: ${10 + (count - 1) * 2}`
     },
     86: {
         type: 'powerful',
-        text: 'Choose any spell of 5th level or lower: cast it once per day.',
-        stackRule: 'Cannot be stacked.',
-        requiresCustom: ['spell']
+        text: 'You get a temporary boon: once in the next 30 days, you may rewrite one failed skill check to a success (DM enforces reasonable limits).',
+        stackRule: 'Stacked increase the number of rewrites and shorten cooldown.',
+        stackCalc: (count) => `Total rewrites available in 30 days: ${count}`
     },
     87: {
-        type: 'powerful',
-        text: 'You always act first in initiative.',
-        stackRule: 'Cannot be stacked.'
+        type: 'positive',
+        text: 'You may attune to an additional minor magic item (beyond normal attunement limits) for 7 days.',
+        stackRule: 'Stacked increase number of extra attunements.',
+        stackCalc: (count) => `Extra attunements: ${count}; Duration days: 7`
     },
     88: {
-        type: 'powerful',
-        text: 'You cannot be critically hit.',
-        stackRule: 'Cannot be stacked.'
+        type: 'mixed',
+        text: 'Your next healing potion consumed provides double HP, but tastes awful and leaves you with −1 Cha for 8 hours.',
+        stackRule: 'Stacked increase number of doubled potions or penalty duration.',
+        stackCalc: (count) => `Doubled potions available: ${count}; Cha penalty duration: ${8 * count} hours`
     },
     89: {
-        type: 'powerful',
-        text: 'Double all healing you receive.',
-        stackRule: 'Cannot be stacked.'
+        type: 'negative',
+        text: 'You get a minor curse of clumsiness: on a natural 1 while moving you stumble and move 5 ft in a random direction.',
+        stackRule: 'Stacked increase probability/severity.',
+        stackCalc: (count) => `Extra stumble severity level: ${count}`
     },
     90: {
-        type: 'powerful',
-        text: 'Once per campaign, rewrite the outcome of any one event.',
-        stackRule: 'Cannot be stacked.'
+        type: 'positive',
+        text: 'Gain a single-use magic token that casts the 1st-level healing spell "Cure Light Wounds" (homebrew) when consumed.',
+        stackRule: 'Stacked grant more tokens.',
+        stackCalc: (count) => `Healing tokens granted: ${count}`
     },
-
     91: {
-        type: 'disaster',
-        text: 'The bell permanently bonds to the PC; only they may ring it.',
-        stackRule: 'Nothing happens if rolled again.'
+        type: 'powerful',
+        text: 'You may once per long rest add +5 temporary HP to an ally as a reaction.',
+        stackRule: 'Stacked increase uses per long rest.',
+        stackCalc: (count) => `Reactions per long rest: ${count}`
     },
     92: {
-        type: 'disaster',
-        text: 'PC permanently loses a level.',
-        stackRule: 'Cannot be stacked.'
+        type: 'mixed',
+        text: 'Your eyes shimmer and you can see ethereal creatures for 1 hour, but you also take a −1 penalty to saves vs psychic for 24 hours afterward.',
+        stackRule: 'Stacked increase vision duration and penalty length.',
+        stackCalc: (count) => `Vision duration: ${1 * count} hour(s); Psychic penalty duration: ${24 * count} hours`
     },
     93: {
-        type: 'disaster',
-        text: 'All magic items carried become cursed.',
-        stackRule: 'Nothing happens if rolled again.'
+        type: 'negative',
+        text: 'Your armor creaks loudly: while wearing it you have disadvantage on Stealth checks.',
+        stackRule: 'When stacked increase severity (disadvantage -> auto-fail on checks ≤ 5).',
+        stackCalc: (count) => `Stealth scaling: disadvantage at ${count === 1 ? '1' : count} stacks; auto-fail threshold: ≤ ${5 + (count - 1) * 2}`
     },
     94: {
-        type: 'disaster',
-        text: 'PC permanently fails one saving throw type.',
-        stackRule: 'Cannot be stacked.'
+        type: 'positive',
+        text: 'You gain a tiny personal weather bubble: one time you can make it lightly rain in a 10-ft circle to obscure vision (good for escapes).',
+        stackRule: 'Stacked increase uses or area.',
+        stackCalc: (count) => `Uses: ${count}; Area per use: ${10 * count} ft circle`
     },
     95: {
-        type: 'disaster',
-        text: 'PC becomes invisible to resurrection magic.',
-        stackRule: 'Cannot be stacked.'
+        type: 'mixed',
+        text: 'You can borrow a stranger\'s minor memory for 1 hour (DM supplies a short useful fact). Afterward you lose a benign memory for 1 hour.',
+        stackRule: 'Stacked allow more borrowed memories simultaneously.',
+        stackCalc: (count) => `Borrowed memories available simultaneously: ${count}`
     },
     96: {
-        type: 'disaster',
-        text: 'A hostile extraplanar entity becomes aware of the PC.',
-        stackRule: 'When stacked, it acts sooner.'
+        type: 'negative',
+        text: 'Your pockets attract static: small metallic items spark and may misfire once per hour (if applicable).',
+        stackRule: 'Stacked increase frequency.',
+        stackCalc: (count) => `Spark events per hour: ${count}`
     },
     97: {
-        type: 'disaster',
-        text: 'PC permanently loses their highest ability score.',
-        stackRule: 'Cannot be stacked.'
+        type: 'positive',
+        text: 'You obtain a single use of "Insightful Strike": your next attack instead uses your highest mental stat for attack/damage calculations (one-use).',
+        stackRule: 'Stacked grant more uses.',
+        stackCalc: (count) => `Insightful Strike uses: ${count}`
     },
     98: {
-        type: 'disaster',
-        text: 'Reality fractures: reroll all bell effects this session.',
-        stackRule: 'Cannot be stacked.'
+        type: 'powerful',
+        text: 'A guardian spirit escorts you at night for 7 days, granting +2 to sleep-based saves and warding you from nightmares.',
+        stackRule: 'Stacked extend the duration and add small additional benefits.',
+        stackCalc: (count) => `Days guarded: ${7 * count}; Additional save bonus per stack: +${2 * count}`
     },
     99: {
         type: 'disaster',
-        text: 'PC immediately dies. Resurrection is possible.',
-        stackRule: 'Nothing happens if rolled again.'
+        text: 'A local NPC develops an inexplicable obsession with you (roleplay-heavy; possible bounty or trouble).',
+        stackRule: 'When stacked more NPCs are affected.',
+        stackCalc: (count) => `Number of obsessed NPCs: ${count}`
     },
     100: {
-        type: 'legendary',
-        text: 'The bell rewrites fate. PC chooses any result from this table. Bell shatters forever.',
+        type: 'powerful',
+        text: 'One time only: you may rewrite one short, clear event in the past 24 hours (DM final call). After use, gain 2 permanent minor complications (DM chooses).',
         stackRule: 'Cannot be stacked.'
     }
 };
