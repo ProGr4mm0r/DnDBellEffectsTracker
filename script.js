@@ -90,7 +90,7 @@ const bellEffects = {
     },
     19: {
         type: 'positive',
-        text: 'Weapons deal +1d4 thunder damage permanently.',
+        text: 'Non Ranged Weapons deal +1d4 thunder damage permanently.',
         stackRule: 'If stacked then only one of them is permanent and the rest is until the end of the session.'
     },
     20: {
@@ -162,8 +162,20 @@ const characters = {
     lim: {
         name: 'Lim',
         rolls: [
-            { num: 2 },
-            { num: 3 },
+            {
+                num: 13,
+                feat: 'https://dnd5e.wikidot.com/feat:skilled',
+                featName: 'Skilled - Birdpipes, Bagpipes, Bowls',
+                abilityLoss: 'Sleight of Hand',
+                lossAmount: '1'
+            },
+            {
+                num: 13,
+                feat: 'https://dnd5e.wikidot.com/feat:skilled',
+                featName: 'Skilled - Clarinet, Carpenter\'s Tools, Cartographer\'s Tools',
+                abilityLoss: 'Stealth',
+                lossAmount: '1'
+            },
             { num: 12 },
             { num: 24 }
         ]
@@ -193,6 +205,7 @@ const characters = {
         name: 'Keaden',
         rolls: [
             { num: 23, spell: 'https://www.dndbeyond.com/spells/2299-web', spellName: 'Web' },
+            { num: 26, abilityGain: 'Religion', abilityLoss: 'Survival' },
             { num: 19 },
             { num: 19 },
             { num: 21 },
