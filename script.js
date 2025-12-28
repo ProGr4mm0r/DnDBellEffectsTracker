@@ -154,6 +154,368 @@ const bellEffects = {
         type: 'positive',
         text: 'Instantly level up. Remove one permanent negative from each PC. Bell shatters forever.',
         stackRule: 'Cannot be stacked.'
+    },
+
+    31: {
+        type: 'negative',
+        text: 'PC permanently loses proficiency in one saving throw (DM chooses).',
+        stackRule: 'Cannot be stacked.'
+    },
+    32: {
+        type: 'negative',
+        text: 'PC gains disadvantage on their first roll of every session.',
+        stackRule: 'Cannot be stacked.'
+    },
+    33: {
+        type: 'negative',
+        text: 'PC permanently loses one attunement slot.',
+        stackRule: 'Cannot be stacked.'
+    },
+    34: {
+        type: 'negative',
+        text: 'PC can no longer gain inspiration.',
+        stackRule: 'Cannot be stacked.'
+    },
+    35: {
+        type: 'negative',
+        text: 'All healing received by the PC is reduced by 2.',
+        stackRule: 'When stacked, healing reduction increases.',
+        stackCalc: (count) => `Healing reduced by ${count * 2}`
+    },
+    36: {
+        type: 'negative',
+        text: 'PC permanently gains disadvantage on death saving throws.',
+        stackRule: 'Cannot be stacked.'
+    },
+    37: {
+        type: 'negative',
+        text: 'PC’s carrying capacity is halved permanently.',
+        stackRule: 'Cannot be stacked.'
+    },
+    38: {
+        type: 'negative',
+        text: 'PC cannot benefit from Help actions.',
+        stackRule: 'Cannot be stacked.'
+    },
+    39: {
+        type: 'negative',
+        text: 'PC loses resistance to one damage type they currently have.',
+        stackRule: 'When stacked, loses another resistance.'
+    },
+    40: {
+        type: 'negative',
+        text: 'PC permanently loses darkvision (if they had it).',
+        stackRule: 'Nothing happens if rolled again.'
+    },
+
+    41: {
+        type: 'mixed',
+        text: '+2 to one skill of choice. –2 to another skill of choice.',
+        stackRule: 'Stacked normally.'
+    },
+    42: {
+        type: 'mixed',
+        text: 'Advantage on saving throws vs magic. Disadvantage on non-magical saves.',
+        stackRule: 'Cannot be stacked.'
+    },
+    43: {
+        type: 'mixed',
+        text: 'Once per session, ignore difficult terrain. Speed is reduced by 5 permanently.',
+        stackRule: 'Cannot be stacked.'
+    },
+    44: {
+        type: 'mixed',
+        text: 'Gain blindsight 5 ft. Become vulnerable to psychic damage.',
+        stackRule: 'Cannot be stacked.'
+    },
+    45: {
+        type: 'mixed',
+        text: 'Once per day, auto-crit on a hit. Next long rest gives no benefits.',
+        stackRule: 'Cannot be stacked.'
+    },
+    46: {
+        type: 'mixed',
+        text: 'Immune to fear. Automatically fail the first charm save each session.',
+        stackRule: 'Cannot be stacked.'
+    },
+    47: {
+        type: 'mixed',
+        text: '+1 AC permanently. –1 to all saving throws.',
+        stackRule: 'Stacked normally.'
+    },
+    48: {
+        type: 'mixed',
+        text: 'Gain advantage on Perception. Disadvantage on Insight.',
+        stackRule: 'Cannot be stacked.'
+    },
+    49: {
+        type: 'mixed',
+        text: 'Once per session, turn a miss into a hit. Take 1d10 force damage.',
+        stackRule: 'Stacked normally.'
+    },
+    50: {
+        type: 'mixed',
+        text: 'Gain one extra reaction per day. Lose your reaction on round one of combat.',
+        stackRule: 'Cannot be stacked.'
+    },
+
+    51: {
+        type: 'positive',
+        text: '+1 to all saving throws.',
+        stackRule: 'When stacked, increases normally.',
+        stackCalc: (count) => `Total save bonus: +${count}`
+    },
+    52: {
+        type: 'positive',
+        text: '+10 ft movement speed permanently.',
+        stackRule: 'Stacked normally.',
+        stackCalc: (count) => `Total speed bonus: +${count * 10} ft`
+    },
+    53: {
+        type: 'positive',
+        text: 'Regain one spent hit die at the start of every session.',
+        stackRule: 'Cannot be stacked.'
+    },
+    54: {
+        type: 'positive',
+        text: 'Choose one damage type: gain resistance.',
+        stackRule: 'When stacked, choose another damage type.'
+    },
+    55: {
+        type: 'positive',
+        text: '+1 to spell save DC.',
+        stackRule: 'Stacked normally.',
+        stackCalc: (count) => `Total spell DC bonus: +${count}`
+    },
+    56: {
+        type: 'positive',
+        text: 'Once per day, gain advantage on all rolls for one round.',
+        stackRule: 'Cannot be stacked.'
+    },
+    57: {
+        type: 'positive',
+        text: 'Gain proficiency in one saving throw (DM chooses).',
+        stackRule: 'Cannot be stacked.'
+    },
+    58: {
+        type: 'positive',
+        text: 'Critical hits deal max damage instead of rolling.',
+        stackRule: 'Cannot be stacked.'
+    },
+    59: {
+        type: 'positive',
+        text: '+2 to death saving throws.',
+        stackRule: 'Cannot be stacked.'
+    },
+    60: {
+        type: 'positive',
+        text: 'Gain one extra attunement slot.',
+        stackRule: 'Cannot be stacked.'
+    },
+
+    61: {
+        type: 'powerful',
+        text: 'Once per day, negate all damage from one source.',
+        stackRule: 'If stacked, extra uses last only this session.'
+    },
+    62: {
+        type: 'powerful',
+        text: '+2 to AC until you are hit; then it ends permanently.',
+        stackRule: 'Cannot be stacked.'
+    },
+    63: {
+        type: 'powerful',
+        text: 'Once per session, act twice on your turn.',
+        stackRule: 'If stacked, extra uses last this session only.'
+    },
+    64: {
+        type: 'powerful',
+        text: 'Immune to one condition of your choice.',
+        stackRule: 'When stacked, choose another condition.'
+    },
+    65: {
+        type: 'powerful',
+        text: 'Once per day, automatically succeed any saving throw.',
+        stackRule: 'Cannot be stacked.'
+    },
+    66: {
+        type: 'powerful',
+        text: '+2 to one ability score (max 24).',
+        stackRule: 'Stacked normally.'
+    },
+    67: {
+        type: 'powerful',
+        text: 'Whenever you drop to 0 HP, immediately take one extra turn.',
+        stackRule: 'Cannot be stacked.'
+    },
+    68: {
+        type: 'powerful',
+        text: 'Spells ignore resistance.',
+        stackRule: 'Cannot be stacked.'
+    },
+    69: {
+        type: 'powerful',
+        text: 'Weapon attacks ignore immunity and treat it as resistance.',
+        stackRule: 'Cannot be stacked.'
+    },
+    70: {
+        type: 'powerful',
+        text: 'You cannot die from failed death saves. Massive damage can still kill you.',
+        stackRule: 'Cannot be stacked.'
+    },
+
+    71: {
+        type: 'disaster',
+        text: 'PC immediately gains 3 permanent exhaustion levels.',
+        stackRule: 'Cannot be stacked.'
+    },
+    72: {
+        type: 'disaster',
+        text: 'All gold carried by the party turns to dust.',
+        stackRule: 'Nothing happens if rolled again.'
+    },
+    73: {
+        type: 'disaster',
+        text: 'A random PC permanently loses one class feature (DM chooses).',
+        stackRule: 'Cannot be stacked.'
+    },
+    74: {
+        type: 'disaster',
+        text: 'PC’s soul is marked; resurrection requires a DC 15 check.',
+        stackRule: 'When stacked, DC increases by 5.'
+    },
+    75: {
+        type: 'disaster',
+        text: 'PC permanently loses access to one spell level (highest available).',
+        stackRule: 'Cannot be stacked.'
+    },
+    76: {
+        type: 'disaster',
+        text: 'PC becomes vulnerable to all damage for one session.',
+        stackRule: 'Nothing happens if rolled again.'
+    },
+    77: {
+        type: 'disaster',
+        text: 'PC loses one death save permanently (now fails at 2).',
+        stackRule: 'Cannot be stacked.'
+    },
+    78: {
+        type: 'disaster',
+        text: 'A major NPC becomes a permanent enemy.',
+        stackRule: 'When stacked, enemy gains power.'
+    },
+    79: {
+        type: 'disaster',
+        text: 'PC permanently loses one spell slot of each level.',
+        stackRule: 'Cannot be stacked.'
+    },
+    80: {
+        type: 'disaster',
+        text: 'PC cannot benefit from long rests for the next 3 sessions.',
+        stackRule: 'Nothing happens if rolled again.'
+    },
+
+    81: {
+        type: 'positive',
+        text: 'Remove one permanent negative effect from the PC.',
+        stackRule: 'Stacked normally.'
+    },
+    82: {
+        type: 'positive',
+        text: 'Gain advantage on all saving throws for one full session.',
+        stackRule: 'Nothing happens if rolled again.'
+    },
+    83: {
+        type: 'positive',
+        text: 'Gain one extra feat (DM chooses).',
+        stackRule: 'Cannot be stacked.'
+    },
+    84: {
+        type: 'positive',
+        text: 'Regain all spent spell slots immediately.',
+        stackRule: 'Nothing happens if rolled again.'
+    },
+    85: {
+        type: 'positive',
+        text: 'Automatically succeed your next three rolls.',
+        stackRule: 'Cannot be stacked.'
+    },
+    86: {
+        type: 'powerful',
+        text: 'Choose any spell of 5th level or lower: cast it once per day.',
+        stackRule: 'Cannot be stacked.',
+        requiresCustom: ['spell']
+    },
+    87: {
+        type: 'powerful',
+        text: 'You always act first in initiative.',
+        stackRule: 'Cannot be stacked.'
+    },
+    88: {
+        type: 'powerful',
+        text: 'You cannot be critically hit.',
+        stackRule: 'Cannot be stacked.'
+    },
+    89: {
+        type: 'powerful',
+        text: 'Double all healing you receive.',
+        stackRule: 'Cannot be stacked.'
+    },
+    90: {
+        type: 'powerful',
+        text: 'Once per campaign, rewrite the outcome of any one event.',
+        stackRule: 'Cannot be stacked.'
+    },
+
+    91: {
+        type: 'disaster',
+        text: 'The bell permanently bonds to the PC; only they may ring it.',
+        stackRule: 'Nothing happens if rolled again.'
+    },
+    92: {
+        type: 'disaster',
+        text: 'PC permanently loses a level.',
+        stackRule: 'Cannot be stacked.'
+    },
+    93: {
+        type: 'disaster',
+        text: 'All magic items carried become cursed.',
+        stackRule: 'Nothing happens if rolled again.'
+    },
+    94: {
+        type: 'disaster',
+        text: 'PC permanently fails one saving throw type.',
+        stackRule: 'Cannot be stacked.'
+    },
+    95: {
+        type: 'disaster',
+        text: 'PC becomes invisible to resurrection magic.',
+        stackRule: 'Cannot be stacked.'
+    },
+    96: {
+        type: 'disaster',
+        text: 'A hostile extraplanar entity becomes aware of the PC.',
+        stackRule: 'When stacked, it acts sooner.'
+    },
+    97: {
+        type: 'disaster',
+        text: 'PC permanently loses their highest ability score.',
+        stackRule: 'Cannot be stacked.'
+    },
+    98: {
+        type: 'disaster',
+        text: 'Reality fractures: reroll all bell effects this session.',
+        stackRule: 'Cannot be stacked.'
+    },
+    99: {
+        type: 'disaster',
+        text: 'PC immediately dies. Resurrection is possible.',
+        stackRule: 'Nothing happens if rolled again.'
+    },
+    100: {
+        type: 'legendary',
+        text: 'The bell rewrites fate. PC chooses any result from this table. Bell shatters forever.',
+        stackRule: 'Cannot be stacked.'
     }
 };
 
