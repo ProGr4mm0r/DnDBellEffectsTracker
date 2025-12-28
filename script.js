@@ -64,7 +64,7 @@ const bellEffects = {
         text: 'Gain a feat (DM chooses). Lose 1 from an ability score (DM chooses).',
         stackRule: 'Gets another feat and loses another point in a score when rolled again.',
         requiresCustom: ['feat', 'abilityLoss'],
-        stackCalc: (count) => `Feats gained: ${count}, Ability points permanently lost: ${count}`
+        stackCalc: (count) => `Feats gained: ${count*2}, Ability points permanently lost: ${count*2}`
     },
     14: {
         type: 'mixed',
