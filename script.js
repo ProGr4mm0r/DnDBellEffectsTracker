@@ -157,10 +157,115 @@ const bellEffects = {
     }
 };
 
+// Curse list
+const curses = [
+    "Curse of Inconvenient Quacking — During combat, when you roll a natural 1: you quack until the end of your turn; any spell you try to cast that has a verbal component during that quack automatically fails, and any Stealth or Intimidation checks made that turn take a −2 penalty.",
+    "Curse of Uncontrollable Humming — When you roll a natural 1 on a Stealth check: you hum until the end of your turn; while humming your next Stealth check is at −2 and creatures within 10 ft automatically know your square.",
+    "Curse of Sticky Eyelids — When you make a Perception check that relies on sight: subtract 1 from the roll.",
+    "Curse of Awkward Sneezes — When you roll a natural 1 on any Constitution saving throw: you sneeze loudly, and all creatures within 10 ft are alerted to your presence (they automatically know your tile).",
+    "Curse of Wandering Hat — When you stand up from sitting: your hat or headgear falls off and you must use your free object interaction to put it back.",
+    "Curse of the Limp Spoon — When you hold a small metal object: you must spend a free object interaction each time you first grip it that combat to prevent it slipping.",
+    "Curse of Reverse Step — When you take a 5-ft step: roll a d6; on a 1, you instead step 1 ft left or right (DM picks), costing that movement.",
+    "Curse of Sticky Fingers — When you pick up a small item: you must spend a bonus action to peel it off your fingers before you can use it.",
+    "Curse of Random Goose Honks — When you roll a natural 1 on Persuasion or Intimidation: your voice honks for the rest of that check; if the check is in public, creatures within 15 ft notice you.",
+    "Curse of Perpetual Dampness — When you move over dry ground: you leave a 5-ft wet trail that is visible to anyone actively tracking.",
+    "Curse of Sudden Yawns — When you roll a natural 1 on a Wisdom save: you yawn for one round and lose your reaction until the end of your next turn.",
+    "Curse of Awkward Handshakes — When you attempt a handshake as part of a social interaction: the first Persuasion check automatically fails and you must spend your free interaction to redo the handshake.",
+    "Curse of Sneaky Pants — When you stand still for any reason: your trousers slip 1 ft and you must spend your next free object interaction to adjust them.",
+    "Curse of Excessive Glitter — When you roll a natural 1 on a Stealth check in dim or bright light: emit faint sparkles that reveal your location to creatures within 10 ft.",
+    "Curse of Talking Shoes — When you roll a natural 1 on a movement-related Dexterity check: your shoes whisper loudly and creatures within 5 ft know your location.",
+    "Curse of Unreadable Handwriting — When you write notes: anyone else reading them must succeed on a DC 10 Intelligence check or misread a line (DM decides consequence).",
+    "Curse of the Soggy Sandwich — When you eat food from your pack: fail a DC 10 Con save and take 1 hp of poison damage (automatic failure if you already have 0 gp worth of food).",
+    "Curse of Cold Breezes — When someone touches you in a non-hostile way: they must succeed on a DC 10 Con save or suffer disadvantage on their next skill check against you (they shiver).",
+    "Curse of the Giggling Goblet — When you drink from a shared vessel: you giggle instantly and your next attack or skill check that relies on focus is made at −1.",
+    "Curse of Phantom Itches — When you roll a natural 1 on any skill check: you must use your free object interaction to scratch before making another action.",
+    "Curse of the Bent Spoon — When you use an improvised weapon: its damage is reduced by 1.",
+    "Curse of Random Popping — When you roll a natural 1 on Stealth: small popping noises reveal your position to creatures within 10 ft.",
+    "Curse of Slow Ladders — When you climb: each 10 ft of vertical movement costs 1 extra foot of horizontal movement (effectively 1 extra foot of movement per 10 vertical ft).",
+    "Curse of the Clumsy Quill — When you cast a spell with somatic components and you roll a natural 1 on the attack/ability check associated with casting (if DM calls for one): the somatic component fails and the spell is lost.",
+    "Curse of Whistling Bags — When you open or rummage a bag: it emits a soft whistle; creatures within 10 ft who are unaware of you become aware of general activity.",
+    "Curse of the Wobbly Chair — When you sit down: roll d20; on 1–3 you fall prone.",
+    "Curse of Random Hiccups — When you roll a natural 1 on a Constitution check: you hiccup and any spell with verbal components you start that turn is interrupted (spell fails).",
+    "Curse of Ticklish Elbows — When someone touches your elbows: you laugh and have −1 to attack rolls until your next turn.",
+    "Curse of the Mismatched Socks — When someone comments on your appearance: any Charisma (Performance or Persuasion) check you make while wearing mismatched socks is at −1.",
+    "Curse of Forgotten Words — When you attempt a verbal component and roll a natural 1 on any relevant check: you forget the words and the spell fails.",
+    "Curse of the Tiny Breeze — When you stand perfectly still for one round: roll d6; on 1 you are pushed 1 ft in a random cardinal direction (no damage).",
+    "Curse of the Muddy Footprints — When you move outdoors in mud: you leave easily traced footprints that reveal your last 20 ft of movement to trackers.",
+    "Curse of the Slippery Handle — When you draw a weapon or grasp a tool and roll a natural 1 on that roll: it slips and falls; you must spend your bonus action to pick it up.",
+    "Curse of Random Farting — When you roll a natural 1 on Stealth in an enclosed 10-ft space: you emit a sound that reveals your location to all creatures in that space.",
+    "Curse of Slightly Off Tunes — When you sing and roll a natural 1 on Performance: the song is off by a noticeable half-step; the Performance check is reduced by 2.",
+    "Curse of Sticky Locks — When you pick a lock and roll a natural 1 on your Thieves' Tools check: the lock jams and you cannot attempt that lock again for 1 minute.",
+    "Curse of the Vanishing Spoon — When you hold a small metal utensil and roll a natural 1 on any check: the utensil disappears for 1d4 rounds and returns to your hand.",
+    "Curse of Perpetual Itch — When you roll a natural 1 on any attack roll: you must use your free object interaction to scratch before making another action.",
+    "Curse of Awkward Sitting — When you sit in a chair and roll a natural 1 on a check: your next skill check in the next round is at −1.",
+    "Curse of the Slippery Floor — When you move across a slick surface and roll a natural 1 on your Dex save: you fall prone.",
+    "Curse of the Squeaky Voice — When you roll a natural 1 on any Charisma (speech) check: your voice squeaks for the rest of that interaction; apply −1 to the check.",
+    "Curse of Wiggly Hair — When you roll a natural 1 on Acrobatics or Performance: your hair obstructs vision and you take −1 to that roll.",
+    "Curse of Rolling Pens — When you drop a pen/quill: it rolls 5 ft away in a random direction automatically.",
+    "Curse of Phantom Droplets — When you cast a spell with a visible component and roll a natural 1 on a related check: harmless droplets appear and the spell's DC is reduced by 1.",
+    "Curse of the Fluttering Eyelash — When you roll a natural 1 on an attack or skill check: an eyelash irritates you and you subtract 1 from that roll.",
+    "Curse of Clanging Plates — When you use metal utensils to eat or tinker and roll a natural 1: the clanging alerts creatures within 10 ft.",
+    "Curse of the Slippery Hairpin — When you wear a hairpin and roll a natural 1 on a check: the pin falls out and you spend your free object interaction to re-secure it.",
+    "Curse of Bouncing Steps — When you roll a natural 1 on an Acrobatics check while moving: your next movement that turn costs an extra 5 ft.",
+    "Curse of the Wandering Pen — When you write and roll a natural 1: your pen moves 1 ft and adds a tiny doodle; readers must make a DC 10 Int check to ignore the doodle.",
+    "Curse of the Wiggly Tailbone — When you roll a natural 1 while seated: you shift and take −1 to your next roll.",
+    "Curse of the Faint Glow — When you roll a natural 1 on a Stealth check in darkness: your fingertips glow dimly, revealing your location within 5 ft.",
+    "Curse of the Shuffling Feet — When you roll a natural 1 on a movement check: your next 5 ft of movement costs you an extra foot of movement.",
+    "Curse of Slightly Crooked Posture — When you roll a natural 1 on a Charisma check: subtract 1 from that check.",
+    "Curse of the Ticklish Tongue — When you roll a natural 1 on a Verbal Performance: you laugh and the check fails.",
+    "Curse of Phantom Sneezes — When you roll a natural 1 on any saving throw: you sneeze and take −1 to your next attack roll.",
+    "Curse of the Squeaky Belt — When you roll a natural 1 on a movement-related Dexterity check: your belt squeaks and creatures within 5 ft notice you.",
+    "Curse of the Talking Hat — When you roll a natural 1 on Persuasion: your hat emits a mutter and subtracts 1 from the check.",
+    "Curse of the Bouncing Mug — When you drink and roll a natural 1 on a Dex check: 1 oz of the drink spills.",
+    "Curse of Random Glitter — When you roll a natural 1 on Stealth: one glittering speck flies off and creatures within 5 ft notice you.",
+    "Curse of the Wandering Eyebrow — When you roll a natural 1 on Charisma: your eyebrow twitches and the check is at −1.",
+    "Curse of Phantom Taps — When you roll a natural 1 on Dexterity: your fingers or feet tap and creatures within 5 ft notice.",
+    "Curse of the Jiggly Hair — When you roll a natural 1 on Acrobatics or Performance: hair movement imposes −1 to the roll.",
+    "Curse of the Clattering Teeth — When you roll a natural 1 on a Con save: your teeth chatter and your next attack roll is at −1.",
+    "Curse of the Soggy Note — When you roll a natural 1 while writing: ink smears; anyone reading must make DC 10 Int to correctly parse a sentence.",
+    "Curse of the Whistling Lantern — When you roll a natural 1 on a Dex check while holding a light: the light emits a faint whistle and nearby creatures within 5 ft notice.",
+    "Curse of the Rolling Spoon — When you drop a spoon: it rolls 5 ft in a random direction.",
+    "Curse of the Fluttering Cloak — When you roll a natural 1 on Acrobatics: your cloak flaps and your movement that turn is reduced by 5 ft.",
+    "Curse of the Dripping Nose — When you roll a natural 1 on a Con check: your nose drips and you must use a free object interaction to wipe it.",
+    "Curse of Random Wiggles — When you roll a natural 1 on a Dex check: your fingers wiggle and subtract 1 from the roll.",
+    "Curse of the Rolling Quill — When you drop a quill: it rolls 2 ft away on its own.",
+    "Curse of Minor Static — When you roll a natural 1 on a Sleight of Hand or touch check: you receive a tiny static shock and drop the item.",
+    "Curse of the Bouncing Pen — When you roll a natural 1 while writing: the pen bounces and you add one random character to the text.",
+    "Curse of Odd Shadows — When you roll a natural 1 on Stealth: your shadow twitches and creatures within 5 ft notice you.",
+    "Curse of Faint Smells — When you roll a natural 1 on Persuasion or Deception: you emit a faint odd smell; subtract 1 from that check.",
+    "Curse of the Squeaky Shoes — When you roll a natural 1 on a movement Dex check: your shoes squeak; creatures within 5 ft know your tile.",
+    "Curse of Wandering Trinkets — When you drop a trinket: it rolls 1–5 ft away randomly.",
+    "Curse of Phantom Blink — When you roll a natural 1 on Perception or Investigation: you blink and take −1 to that roll.",
+    "Curse of the Wobbly Mug — When you hold a cup and roll a natural 1 on Dex: you spill 1 oz.",
+    "Curse of Ticklish Spine — When you roll a natural 1 on Con or Acrobatics: a shiver gives −1 to that roll.",
+    "Curse of Minor Glimmer — When you roll a natural 1 on Stealth: a tiny glimmer appears and creatures within 5 ft notice you.",
+    "Curse of Tangled Laces — When you roll a natural 1 on movement-related checks: your laces tangle and you must use a free object interaction to untangle.",
+    "Curse of Tiny Bumps — When you roll a natural 1 on Acrobatics: you stumble and lose 5 ft of movement.",
+    "Curse of Random Hiccups — When you roll a natural 1 on Con: you hiccup and any verbal skill check started that turn (not spells) takes −1.",
+    "Curse of Wiggly Eyelids — When you roll a natural 1 on Perception (sight): your eyelids flutter and subtract 1 from the roll.",
+    "Curse of Rolling Dice — When you roll dice for a game and get a natural 1: all your dice roll one extra time in random directions (DM narrates minor chaos; no mechanical change beyond distraction: −1 to next gambling check).",
+    "Curse of Fluttering Sleeves — When you roll a natural 1 on Dex checks involving arms/hands: sleeves flap and subtract 1 from the roll.",
+    "Curse of Minor Popping — When you roll a natural 1 on Stealth: small pops occur and creatures within 5 ft notice.",
+    "Curse of Squeaky Knees — When you roll a natural 1 on Acrobatics: knees squeak; creatures within 5 ft notice.",
+    "Curse of Talking Hair — When you roll a natural 1 on Persuasion: your hair moves awkwardly and the check is at −1.",
+    "Curse of the Wiggling Nose — When you roll a natural 1 on Con or Str: your nose wiggles and the roll is reduced by 1.",
+    "Curse of the Sliding Gloves — When you roll a natural 1 on Sleight of Hand: your gloves slip and you drop the item.",
+    "Curse of Minor Spills — When you roll a natural 1 while drinking: you spill 1 oz of liquid.",
+    "Curse of Bouncing Shoulders — When you roll a natural 1 on Acrobatics: shoulders bounce and your movement that turn is reduced by 5 ft.",
+    "Curse of Fluttering Eyebrows — When you roll a natural 1 on Charisma: your eyebrows twitch and the check is at −1.",
+    "Curse of Rolling Coins — When you drop coins: they roll 1–5 ft away on their own.",
+    "Curse of Shuffling Papers — When you roll a natural 1 while handling notes: pages shuffle and the related Intelligence/Investigation check is at −1.",
+    "Curse of Faint Giggles — When you roll a natural 1 on any social skill check: you giggle and the check is at −1.",
+    "Curse of Minor Sparks — When you roll a natural 1 on Arcana or while handling small metal components: harmless sparks appear and the check is at −1.",
+    "Curse of the Rolling Bottle — When you drop a bottle: on a roll of natural 1, it rolls 2 ft away.",
+    "Curse of Inconvenient Quacking Redux — When you attempt a sentence of 6 or more words during social speech: roll a d20; on 1 you quack for that sentence and any Skill Check tied to that sentence takes −2."
+];
+
 // CHARACTER DATA - EDIT THIS SECTION
 const characters = {
     lim: {
         name: 'Lim',
+        password: 'LimLovesDND',
         rolls: [
             {
                 num: 13,
@@ -182,6 +287,7 @@ const characters = {
     },
     imp: {
         name: 'Imp',
+        password: 'ImpTheGreat',
         rolls: [
             { num: 10 },
             { num: 19 },
@@ -194,15 +300,17 @@ const characters = {
     },
     crava: {
         name: 'Crava',
+        password: 'CravaIsTheBest',
         rolls: [
             { num: 19 },
             { num: 19 },
             { num: 20 },
-            { num: 28, curseNum: 6 }
+            { num: 28, curseNum: 1 }
         ]
     },
     keaden: {
         name: 'Keaden',
+        password: 'DragonSlayer99',
         rolls: [
             { num: 23, spell: 'https://www.dndbeyond.com/spells/2299-web', spellName: 'Web' },
             { num: 26, abilityGain: 'Religion', abilityLoss: 'Survival' },
@@ -240,6 +348,90 @@ function renderCharacterGrid() {
 }
 
 function showEffects(characterKey) {
+    const char = characters[characterKey];
+    
+    // Check if password is still valid
+    const storageKey = `password_verified_${characterKey}`;
+    const storedData = localStorage.getItem(storageKey);
+    
+    if (storedData) {
+        const { timestamp } = JSON.parse(storedData);
+        const hoursSinceVerified = (Date.now() - timestamp) / (1000 * 60 * 60);
+        
+        // Password valid for 24 hours
+        if (hoursSinceVerified < 24) {
+            displayEffects(characterKey);
+            return;
+        } else {
+            // Password expired, remove it
+            localStorage.removeItem(storageKey);
+        }
+    }
+    
+    // Show password prompt if not verified or expired
+    showPasswordPrompt(characterKey);
+}
+
+function showPasswordPrompt(characterKey) {
+    const char = characters[characterKey];
+    
+    // Remove any existing prompts and effects
+    document.querySelectorAll('.password-prompt, .effects-display').forEach(el => el.remove());
+    document.querySelectorAll('.character-card').forEach(el => el.classList.remove('active'));
+    
+    event.target.closest('.character-card').classList.add('active');
+    
+    const prompt = document.createElement('div');
+    prompt.className = 'password-prompt visible';
+    prompt.innerHTML = `
+        <div class="password-header">🔒 Enter Password for ${char.name}</div>
+        <input type="password" id="password-input" placeholder="Enter password" class="password-input">
+        <div class="password-buttons">
+            <button onclick="verifyPassword('${characterKey}')" class="password-btn verify">Unlock</button>
+            <button onclick="cancelPassword()" class="password-btn cancel">Cancel</button>
+        </div>
+        <div id="password-error" class="password-error"></div>
+    `;
+    
+    document.getElementById('effects-container').appendChild(prompt);
+    document.getElementById('password-input').focus();
+    
+    // Allow Enter key to submit
+    document.getElementById('password-input').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            verifyPassword(characterKey);
+        }
+    });
+}
+
+function verifyPassword(characterKey) {
+    const char = characters[characterKey];
+    const input = document.getElementById('password-input').value;
+    const errorEl = document.getElementById('password-error');
+    
+    if (input === char.password) {
+        // Store verification in localStorage with timestamp
+        const storageKey = `password_verified_${characterKey}`;
+        localStorage.setItem(storageKey, JSON.stringify({
+            timestamp: Date.now()
+        }));
+        
+        // Remove prompt and show effects
+        document.querySelector('.password-prompt').remove();
+        displayEffects(characterKey);
+    } else {
+        errorEl.textContent = '❌ Incorrect password';
+        document.getElementById('password-input').value = '';
+        document.getElementById('password-input').focus();
+    }
+}
+
+function cancelPassword() {
+    document.querySelector('.password-prompt').remove();
+    document.querySelectorAll('.character-card').forEach(el => el.classList.remove('active'));
+}
+
+function displayEffects(characterKey) {
     document.querySelectorAll('.effects-display').forEach(el => el.remove());
     document.querySelectorAll('.character-card').forEach(el => el.classList.remove('active'));
     
@@ -286,13 +478,10 @@ function showEffects(characterKey) {
                 html += `<div class="custom-note">-${roll.lossAmount * 2 || '2'} to ${roll.abilityLoss}</div>`;
             }
             if (roll.curseNum) {
-                html += `<div class="custom-note">🎲 Curse #${roll.curseNum}</div>`;
+                const curseIndex = roll.curseNum - 1;
+                html += `<a href="#curse-${curseIndex}" onclick="showCurseModal(${curseIndex}); return false;" class="link-button">🎲 View Curse #${roll.curseNum}</a>`;
             }
         });
-        
-        if (effect.hasLink && num == 28) {
-            html += `<a href="curses.html" target="_blank" class="link-button">📋 View Curse List</a>`;
-        }
         
         if (count > 1 || effect.stackRule.includes('Cannot be stacked')) {
             html += `<div class="custom-note">📋 ${effect.stackRule}</div>`;
@@ -303,6 +492,43 @@ function showEffects(characterKey) {
     });
     
     document.getElementById('effects-container').appendChild(display);
+}
+
+function showCurseModal(curseIndex) {
+    // Remove any existing modal
+    const existingModal = document.querySelector('.curse-modal');
+    if (existingModal) {
+        existingModal.remove();
+    }
+
+    const modal = document.createElement('div');
+    modal.className = 'curse-modal';
+    modal.innerHTML = `
+        <div class="curse-modal-content">
+            <div class="curse-modal-header">
+                <span>🎲 Curse #${curseIndex + 1}</span>
+                <button onclick="closeCurseModal()" class="curse-close-btn">✕</button>
+            </div>
+            <div class="curse-modal-body">
+                ${curses[curseIndex] || 'Curse not found'}
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    
+    // Close on outside click
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeCurseModal();
+        }
+    });
+}
+
+function closeCurseModal() {
+    const modal = document.querySelector('.curse-modal');
+    if (modal) {
+        modal.remove();
+    }
 }
 
 renderCharacterGrid();
