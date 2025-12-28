@@ -313,20 +313,18 @@ h1 {
 }
 
 .curse-close-btn {
-    background: #ef4444;
-    color: white;
+    background:rgba(1, 1, 1, 0);
+    color: #d3d3d3;
     border: none;
     width: 35px;
     height: 35px;
-    border-radius: 50%;
     font-size: 1.2em;
     cursor: pointer;
     transition: all 0.2s ease;
 }
 
 .curse-close-btn:hover {
-    background: #dc2626;
-    transform: scale(1.1);
+    transform: scale(1.2);
 }
 
 .curse-modal-body {
