@@ -873,8 +873,7 @@ const characters = {
                 lossAmount: '1'
             },
             { num: 12 },
-            { num: 24 },
-            { num: 51 }
+            { num: 24 }
 
         ]
     },
@@ -906,7 +905,7 @@ const characters = {
         password: 'DragonSlayer99',
         rolls: [
             { num: 23, spell: 'https://www.dndbeyond.com/spells/2299-web', spellName: 'Web' },
-            { num: 26, abilityGain: 'Religion', abilityLoss: 'Survival' },
+            { num: 26, abilityGain: 'Religion'},
             { num: 19 },
             { num: 19 },
             { num: 21 },
@@ -1065,7 +1064,7 @@ function displayEffects(characterKey) {
                 html += `<a href="${roll.feat}" target="_blank" class="link-button">🎯 ${roll.featName || 'Feat'}</a>`;
             }
             if (roll.abilityGain) {
-                html += `<div class="custom-note">+2 to ${roll.abilityGain}</div>`;
+                html += `<div class="custom-note">+3 to ${roll.abilityGain}</div>`;
             }
             if (roll.abilityLoss) {
                 html += `<div class="custom-note">-${roll.lossAmount * 2 || '2'} to ${roll.abilityLoss}</div>`;
