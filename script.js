@@ -87,7 +87,8 @@ const bellEffects = {
     68: {
         type: 'positive',
         text: 'Add your proficiency bonus to initiative rolls.',
-        stackRule: 'Cannot be stacked.'
+        stackRule: 'Stacked normally.',
+        stackCalc: (count) => `Initiative bonus: +${count}proficiency`
     },
     71: {
         type: 'positive',
@@ -138,7 +139,7 @@ const bellEffects = {
     },
     40: {
         type: 'powerful',
-        text: 'Once per long rest, negate all damage from one attack or effect.',
+        text: 'Once per long rest, negate all damage for one turn.',
         stackRule: 'Stacked normally.',
         stackCalc: (count) => `Uses per long rest: ${count}`
     },
@@ -526,7 +527,7 @@ const bellEffects = {
     },
     72: {
         type: 'disaster',
-        text: 'Next 3 magical items you attune to become cursed. DM determines curse effect.',
+        text: 'Next 3 magical items you find become cursed. DM determines curse effect.',
         stackRule: 'Stacked normally.',
         stackCalc: (count) => `Cursed attunements remaining: ${count * 3}`
     },
@@ -743,7 +744,6 @@ const characters = {
             { num: 20 },
             { num: 28, curseNum: 1 },
             { num: 8 },
-            { num: 72 },
             { num: 70 },
             { num: 51 },
         ]
