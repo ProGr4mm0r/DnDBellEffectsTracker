@@ -349,12 +349,7 @@ const bellEffects = {
         stackCalc: (count) => `Proficient: +${count}d4, Non-proficient: -${count}d4`
     },
 
-    // NEGATIVE (25 total)
-    2: {
-        type: 'negative',
-        text: 'A random PC drops to 0 HP and gains 2 failed death saves.',
-        stackRule: 'Nothing happens when rolled again in the same session by the same person.'
-    },
+    // NEGATIVE (24 total)
     3: {
         type: 'negative',
         text: 'PC permanently loses 2 from their highest ability score.',
@@ -569,9 +564,9 @@ const bellEffects = {
 
     // Esoteric (2 total)
 
-    1005: { // represents a negative number
+    2: { // represents a negative number
         type: 'esoteric',
-        text: 'An elder bronze dragon appears and stays by your side until you die the dragon is not partial to you but it will not attack you you must convince the dragon to attack for you.',
+        text: 'Ability: An elder bronze dragon appears and stays by your side for 2 sessions and will help you. It is a drug addict and will help you for some alcohol. It is not very smart and will often misunderstand situations, but it is very strong and will fight for you if you ask it to.',
         stackRule: 'Cannot be stacked.'
     },
     51: {
@@ -584,9 +579,9 @@ const bellEffects = {
     // Positive: 20 entries (18,19,20,21,22,23,30,33,37,43,47,54,57,61,68,71,82,85,89,96)
     // Powerful: 5 entries (25,26,29,40,99)
     // Mixed: 35 entries (11,12,13,14,15,16,17,24,32,34,35,39,42,46,49,50,53,55,56,60,63,64,66,67,70,74,77,78,81,84,88,91,92,95,98)
-    // Negative: 25 entries (2,3,4,5,6,7,8,9,10,31,38,41,45,48,52,59,62,69,73,80,83,87,90,94,97)
+    // Negative: 24 entries (3,4,5,6,7,8,9,10,31,38,41,45,48,52,59,62,69,73,80,83,87,90,94,97)
     // Disaster: 14 entries (1,28,27,36,44,58,65,72,75,76,79,86,93,100)
-    // Esoteric: 2 entries (1005/-5,51)
+    // Esoteric: 2 entries (2,51)
 };
 
 // Curse list
@@ -716,7 +711,8 @@ const characters = {
             { num: 12 },
             { num: 24 },
             { num: 9, ageMod: 5 },
-            { num: 37 }
+            { num: 37 },
+            { num: 68 },
 
         ]
     },
@@ -733,6 +729,9 @@ const characters = {
             { num: 11 },
             { num: 9, ageMod: 5 },
             { num: 68 },
+            { num: 61 },
+            { num: 84 },
+            { num: 62 },
         ]
     },
     crava: {
@@ -744,8 +743,12 @@ const characters = {
             { num: 20 },
             { num: 28, curseNum: 1 },
             { num: 8 },
-            { num: 70 },
+            { num: 70, skillLoss: 'Acrobatics', skillGain: 'Intimidation' },
             { num: 51 },
+            { num: 41 },
+            { num: 40 },
+            { num: 40 },
+            { num: 8 },
         ]
     },
     keaden: {
@@ -763,6 +766,10 @@ const characters = {
             { num: 22 },
             { num: 92 },
             { num: 19 },
+            { num: 9 },
+            { num: 40 },
+            { num: 22 },
+            { num: 22 },
         ]
     }
 };
