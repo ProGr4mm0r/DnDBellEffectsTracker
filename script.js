@@ -571,7 +571,7 @@ const bellEffects = {
     },
     51: {
         type: 'esoteric',
-        text: 'The player gains a use of the the Eso-Spell "Summon" to use at will as an action.',
+        text: 'The player gains a use of the the Eso-Spell "Summon" to use at will as an action once per person.',
         stackRule: 'Cannot be stacked.'
     }
 
