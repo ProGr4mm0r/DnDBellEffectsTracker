@@ -748,7 +748,6 @@ const characters = {
             { num: 41 },
             { num: 40 },
             { num: 40 },
-            { num: 8 },
         ]
     },
     keaden: {
