@@ -1,163 +1,3 @@
-// Bell effect definitions
-const bellEffectsDeprecated = {
-    2: {
-        type: 'negative',
-        text: 'A random PC drops to 0 HP and gains 2 failed death saves.',
-        stackRule: 'Nothing happens when rolled again in the same session by the same person.'
-    },
-    3: {
-        type: 'negative',
-        text: 'PC permanently loses 2 from their highest ability score.',
-        stackRule: 'Nothing happens when rolled again in the same session by the same person.'
-    },
-    4: {
-        type: 'negative',
-        text: 'PC permanently loses their voice. Verbal spells require a DC 15 CON save.',
-        stackRule: 'Cannot be stacked.'
-    },
-    5: {
-        type: 'negative',
-        text: 'PC gains vulnerability to cold damage.',
-        stackRule: 'Cannot be stacked.'
-    },
-    6: {
-        type: 'negative',
-        text: 'A random magic item carried by the party has a 1d4 chance to lose all magic.',
-        stackRule: 'When stacked another breaks.'
-    },
-    7: {
-        type: 'negative',
-        text: 'Powerful creatures instinctively distrust or target them.',
-        stackRule: 'When stacked they distrust more.'
-    },
-    8: {
-        type: 'negative',
-        text: 'PC\'s maximum HP is reduced by 5 permanently.',
-        stackRule: 'When stacked they lose more HP.',
-        stackCalc: (count) => `Total HP reduction: ${count * 5}`
-    },
-    9: {
-        type: 'negative',
-        text: 'PC ages 1d20 years instantly.',
-        stackRule: 'When stacked they gain more age. It is fully cosmetic; they will not lose any time before they die.'
-    },
-    10: {
-        type: 'negative',
-        text: 'Thrice per session, the DM may force the PC to reroll a successful roll and take the lower result.',
-        stackRule: 'Cannot be stacked.'
-    },
-    11: {
-        type: 'mixed',
-        text: 'Gain cold resistance, but disadvantage on saves vs exhaustion.',
-        stackRule: 'Cannot be stacked.'
-    },
-    12: {
-        type: 'mixed',
-        text: 'Advantage on Initiative permanently. You can never be surprised — enemies focus you first.',
-        stackRule: 'Cannot be stacked.'
-    },
-    13: {
-        type: 'mixed',
-        text: 'Gain a feat (DM chooses). Lose 1 from an ability score (DM chooses).',
-        stackRule: 'Gets another feat and loses another point in a score when rolled again.',
-        requiresCustom: ['feat', 'abilityLoss']
-    },
-    14: {
-        type: 'mixed',
-        text: 'Once per day, reroll a failed roll. Next save that day has disadvantage.',
-        stackRule: 'If stacked then only one of them is permanent and the rest is until the end of the session.'
-    },
-    15: {
-        type: 'mixed',
-        text: 'Advantage on Perception. Cannot benefit from Alert or similar effects.',
-        stackRule: 'Cannot be stacked.'
-    },
-    16: {
-        type: 'mixed',
-        text: 'Once ever auto-succeed a death save. After triggering, gain 1 permanent exhaustion.',
-        stackRule: 'Cannot be stacked.'
-    },
-    17: {
-        type: 'mixed',
-        text: 'Ask DM one yes/no question. Lose proficiency in one skill permanently (PC\'s Choice). You can save your questions.',
-        stackRule: 'Cannot be stacked unless they used their question already.'
-    },
-    18: {
-        type: 'positive',
-        text: '+1 CON (max 22).',
-        stackRule: 'Stacked normally.',
-        stackCalc: (count) => `Total CON bonus: +${count}`
-    },
-    19: {
-        type: 'positive',
-        text: 'Non Ranged Weapons deal +1d4 thunder damage permanently.',
-        stackRule: 'If stacked then only one of them is permanent and the rest is until the end of the session.'
-    },
-    20: {
-        type: 'positive',
-        text: 'Gain 2 Luck points total (from Lucky feat, but not the feat itself). When using a lucky point it will fully use one.',
-        stackRule: 'When stacked they will gain 2 more up to a max of 3.',
-        stackCalc: (count) => `Total Luck points: ${Math.min(count * 2, 3)}`
-    },
-    21: {
-        type: 'positive',
-        text: 'Immune to environmental cold.',
-        stackRule: 'Cannot be stacked.'
-    },
-    22: {
-        type: 'positive',
-        text: '+5 max HP.',
-        stackRule: 'Stacked normally.',
-        stackCalc: (count) => `Total HP bonus: +${count * 5}`
-    },
-    23: {
-        type: 'positive',
-        text: 'Spell Echo: Gain one 2nd–3rd level spell, 1/day (DM chooses).',
-        stackRule: 'Stacked normally.',
-        requiresCustom: ['spell']
-    },
-    24: {
-        type: 'powerful',
-        text: 'Once per day, can\'t drop below 1 HP. Afterward, Frightened for 1 minute.',
-        stackRule: 'If stacked then only one of them is permanent and the rest is until the end of the session.'
-    },
-    25: {
-        type: 'powerful',
-        text: 'Once per session force a reroll. DM may do the same later.',
-        stackRule: 'If stacked then only one of them is permanent and the rest is until the end of the session.'
-    },
-    26: {
-        type: 'powerful',
-        text: '+2 to one ability (max 24) (DM chooses). –2 to another permanently (DM chooses).',
-        stackRule: 'Stacked normally.',
-        requiresCustom: ['abilityGain', 'abilityLoss']
-    },
-    27: {
-        type: 'powerful',
-        text: 'Cannot be surprised. Enemies gain +2 to hit you on the initial round of combat.',
-        stackRule: 'When stacked add +2 to the effect to a max of +10.',
-        stackCalc: (count) => `Enemies have +${Math.min(count * 2, 10)} to hit on first round`
-    },
-    28: {
-        type: 'disaster',
-        text: 'The PC who rang takes 4d10 necrotic damage and gains a minor curse from goofy ahh curse list.',
-        stackRule: 'Stacked normally.',
-        hasLink: true
-    },
-    29: {
-        type: 'disaster',
-        text: 'One future critical success becomes a failure (DM chooses when).',
-        stackRule: 'Stacked normally.',
-        stackCalc: (count) => `Future crits that become failures: ${count}`
-    },
-    30: {
-        type: 'positive',
-        text: 'Instantly level up. Remove one permanent negative from each PC. Bell shatters forever.',
-        stackRule: 'Cannot be stacked.'
-    }
-    
-};
-
 const bellEffects = {
     // POSITIVE (20 total)
     18: {
@@ -291,7 +131,7 @@ const bellEffects = {
         requiresCustom: ['abilityGain'],
         stackCalc: (count) => `Total ability increases: ${count} (+3 each)`
     },
-    27: {
+    29: {
         type: 'powerful',
         text: 'Cannot be surprised. Gain advantage on Initiative rolls.',
         stackRule: 'Cannot be stacked.'
@@ -655,9 +495,9 @@ const bellEffects = {
         hasLink: true,
         stackCalc: (count) => `Damage: ${count}×4d10 necrotic, Curses: ${count}`
     },
-    29: {
+    27: {
         type: 'disaster',
-        text: 'One future critical success becomes a failure (DM chooses when).',
+        text: 'The next 10 rolls that would have suceeded are failures instead.',
         stackRule: 'Stacked normally.',
         stackCalc: (count) => `Future crits that become failures: ${count}`
     },
@@ -730,21 +570,21 @@ const bellEffects = {
 
     1005: { // represents a negative number
         type: 'esoteric',
-        text: 'An elder bronze dragon appears and stays by your side until you die.',
+        text: 'An elder bronze dragon appears and stays by your side until you die the dragon is not partial to you but it will not attack you you must convince the dragon to attack for you.',
         stackRule: 'Cannot be stacked.'
     },
     51: {
         type: 'esoteric',
-        text: 'The player gains a use of the the Eso-Spell "Summon".',
+        text: 'The player gains a use of the the Eso-Spell "Summon" to use at will as an action.',
         stackRule: 'Cannot be stacked.'
     }
 
     // Final count:
     // Positive: 20 entries (18,19,20,21,22,23,30,33,37,43,47,54,57,61,68,71,82,85,89,96)
-    // Powerful: 5 entries (25,26,27,40,99)
+    // Powerful: 5 entries (25,26,29,40,99)
     // Mixed: 35 entries (11,12,13,14,15,16,17,24,32,34,35,39,42,46,49,50,53,55,56,60,63,64,66,67,70,74,77,78,81,84,88,91,92,95,98)
     // Negative: 25 entries (2,3,4,5,6,7,8,9,10,31,38,41,45,48,52,59,62,69,73,80,83,87,90,94,97)
-    // Disaster: 14 entries (1,28,29,36,44,58,65,72,75,76,79,86,93,100)
+    // Disaster: 14 entries (1,28,27,36,44,58,65,72,75,76,79,86,93,100)
     // Esoteric: 2 entries (1005/-5,51)
 };
 
@@ -873,7 +713,9 @@ const characters = {
                 lossAmount: '1'
             },
             { num: 12 },
-            { num: 24 }
+            { num: 24 },
+            { num: 9, ageMod: 5 },
+            { num: 37 }
 
         ]
     },
@@ -887,7 +729,9 @@ const characters = {
             { num: 16 },
             { num: 11 },
             { num: 24 },
-            { num: 11 }
+            { num: 11 },
+            { num: 9, ageMod: 5 },
+            { num: 68 },
         ]
     },
     crava: {
@@ -897,7 +741,11 @@ const characters = {
             { num: 19 },
             { num: 19 },
             { num: 20 },
-            { num: 28, curseNum: 1 }
+            { num: 28, curseNum: 1 },
+            { num: 8 },
+            { num: 72 },
+            { num: 70 },
+            { num: 51 },
         ]
     },
     keaden: {
@@ -911,7 +759,10 @@ const characters = {
             { num: 21 },
             { num: 18 },
             { num: 27 },
-            { num: 27 }
+            { num: 27 },
+            { num: 22 },
+            { num: 92 },
+            { num: 19 },
         ]
     }
 };
@@ -1072,6 +923,9 @@ function displayEffects(characterKey) {
             if (roll.curseNum) {
                 const curseIndex = roll.curseNum - 1;
                 html += `<a href="#curse-${curseIndex}" onclick="showCurseModal(${curseIndex}); return false;" class="link-button">🎲 View Curse</a>`;
+            }
+            if (roll.ageMod) {
+                html += `<div class="custom-note">🎂 Age Modifier: ${roll.ageMod > 0 ? '+' : ''}${roll.ageMod} years</div>`;
             }
             if (roll.skill) {
                 html += `<div class="custom-note">📚 Skill: ${roll.skill}</div>`;
