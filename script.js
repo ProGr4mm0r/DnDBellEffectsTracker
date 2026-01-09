@@ -743,7 +743,7 @@ const characters = {
             { num: 20 },
             { num: 28, curseNum: 1 },
             { num: 8 },
-            { num: 70, skillLoss: 'Acrobatics', skillGain: 'Intimidation' },
+            { num: 70, skillLoss: 'Intimidation', skillGain: 'Acrobatics' },
             { num: 51 },
             { num: 41 },
             { num: 40 },
