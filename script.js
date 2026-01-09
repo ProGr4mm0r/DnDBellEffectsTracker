@@ -493,9 +493,9 @@ const bellEffects = {
     },
     27: {
         type: 'disaster',
-        text: 'The next 10 rolls that would have suceeded are failures instead.',
+        text: 'The next 10 crits get replaced with failures.',
         stackRule: 'Stacked normally.',
-        stackCalc: (count) => `Future crits that become failures: ${count}`
+        stackCalc: (count) => `Future crits that become failures: ${count*10}`
     },
     36: {
         type: 'disaster',
