@@ -1,11 +1,14 @@
+/* ── Reset & base ─────────────────────────────────────────────────────────── */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
 body {
-    font-family: 'Georgia', serif;
+    font-family: 'Crimson Pro', Georgia, serif;
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
     color: #e8e8e8;
     min-height: 100vh;
@@ -18,6 +21,7 @@ body {
 }
 
 h1 {
+    font-family: 'Cinzel', serif;
     text-align: center;
     color: #f0c674;
     font-size: 2.5em;
@@ -32,6 +36,7 @@ h1 {
     font-style: italic;
 }
 
+/* ── Character grid ───────────────────────────────────────────────────────── */
 .character-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -40,30 +45,238 @@ h1 {
 }
 
 .character-card {
-    background: rgba(255, 255, 255, 0.05);
     border: 2px solid #4a5568;
     border-radius: 12px;
     padding: 25px;
     cursor: pointer;
     transition: all 0.3s ease;
     text-align: center;
+    background: rgba(255,255,255,0.05);
+    position: relative;
+    overflow: hidden;
 }
 
-.character-card:hover {
+/* ── FOX theme — Lim ──────────────────────────────────────────────────────── */
+/*   Warm russet orange, white underbelly, black-tipped accents               */
+.character-card[data-animal="fox"] {
+    background: linear-gradient(160deg, rgba(180,70,20,0.18) 0%, rgba(240,140,50,0.10) 60%, rgba(255,255,255,0.04) 100%);
+    border-color: #c95f1a;
+}
+.character-card[data-animal="fox"]:hover,
+.character-card[data-animal="fox"].active {
+    border-color: #f08030;
+    box-shadow: 0 8px 28px rgba(200,90,20,0.45);
     transform: translateY(-5px);
-    border-color: #f0c674;
-    box-shadow: 0 8px 20px rgba(240, 198, 116, 0.3);
+}
+.character-card[data-animal="fox"] .character-name {
+    color: #f08030;
+}
+.character-card[data-animal="fox"] .animal-badge {
+    background: linear-gradient(90deg, #c95f1a, #f08030);
+    color: #fff8f0;
+}
+/* Fox tail stripe across card bottom */
+.character-card[data-animal="fox"]::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 4px;
+    background: repeating-linear-gradient(90deg, #c95f1a 0px, #f08030 18px, #1a1a1a 18px, #1a1a1a 24px);
+    border-radius: 0 0 10px 10px;
 }
 
-.character-card.active {
-    border-color: #f0c674;
-    background: rgba(240, 198, 116, 0.1);
+/* Fox effects display */
+.effects-display[data-animal="fox"] {
+    border-color: #f08030;
+    background: linear-gradient(160deg, rgba(180,70,20,0.12) 0%, rgba(26,26,46,0.95) 50%);
+}
+.effects-display[data-animal="fox"] .effects-header {
+    color: #f08030;
+    border-bottom-color: #f08030;
+}
+.effects-display[data-animal="fox"] .effect-item:hover {
+    border-left-color: #f08030;
 }
 
+/* ── KING SNAKE theme — Imp ───────────────────────────────────────────────── */
+/*   Bold red / black / yellow tri-bands like a scarlet king snake            */
+.character-card[data-animal="king-snake"] {
+    background: linear-gradient(160deg, rgba(180,20,20,0.18) 0%, rgba(20,20,20,0.25) 50%, rgba(220,180,0,0.10) 100%);
+    border-color: #8b0000;
+}
+.character-card[data-animal="king-snake"]:hover,
+.character-card[data-animal="king-snake"].active {
+    border-color: #dc2626;
+    box-shadow: 0 8px 28px rgba(180,0,0,0.5);
+    transform: translateY(-5px);
+}
+.character-card[data-animal="king-snake"] .character-name {
+    color: #f87171;
+}
+.character-card[data-animal="king-snake"] .animal-badge {
+    background: linear-gradient(90deg, #8b0000, #dc2626, #ca8a04);
+    color: #fff;
+}
+/* Snake banding stripe */
+.character-card[data-animal="king-snake"]::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 5px;
+    background: repeating-linear-gradient(90deg,
+        #dc2626 0px, #dc2626 12px,
+        #111 12px, #111 20px,
+        #ca8a04 20px, #ca8a04 28px,
+        #111 28px, #111 36px);
+    border-radius: 0 0 10px 10px;
+}
+
+/* King snake effects display */
+.effects-display[data-animal="king-snake"] {
+    border-color: #dc2626;
+    background: linear-gradient(160deg, rgba(139,0,0,0.15) 0%, rgba(26,26,46,0.95) 50%);
+}
+.effects-display[data-animal="king-snake"] .effects-header {
+    color: #f87171;
+    border-bottom-color: #dc2626;
+}
+.effects-display[data-animal="king-snake"] .effect-item:hover {
+    border-left-color: #dc2626;
+}
+
+/* ── CHICKADEE theme — Crava ──────────────────────────────────────────────── */
+/*   Black cap, crisp white cheeks, warm buff/tan body                        */
+.character-card[data-animal="chickadee"] {
+    background: linear-gradient(160deg, rgba(20,20,20,0.30) 0%, rgba(240,235,220,0.07) 50%, rgba(190,160,110,0.10) 100%);
+    border-color: #5a5a5a;
+}
+.character-card[data-animal="chickadee"]:hover,
+.character-card[data-animal="chickadee"].active {
+    border-color: #c8b99a;
+    box-shadow: 0 8px 28px rgba(200,185,155,0.30);
+    transform: translateY(-5px);
+}
+.character-card[data-animal="chickadee"] .character-name {
+    color: #e8dcc8;
+}
+.character-card[data-animal="chickadee"] .animal-badge {
+    background: linear-gradient(90deg, #1a1a1a, #5a5a5a, #c8b99a);
+    color: #fff;
+}
+/* Chickadee cap band */
+.character-card[data-animal="chickadee"]::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #111 40%, #888 70%, #c8b99a 100%);
+    border-radius: 10px 10px 0 0;
+}
+.character-card[data-animal="chickadee"]::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: #c8b99a;
+    border-radius: 0 0 10px 10px;
+}
+
+.effects-display[data-animal="chickadee"] {
+    border-color: #c8b99a;
+    background: linear-gradient(160deg, rgba(20,20,20,0.20) 0%, rgba(26,26,46,0.95) 50%);
+}
+.effects-display[data-animal="chickadee"] .effects-header {
+    color: #e8dcc8;
+    border-bottom-color: #c8b99a;
+}
+.effects-display[data-animal="chickadee"] .effect-item:hover {
+    border-left-color: #c8b99a;
+}
+
+/* ── FRILLED LIZARD theme — Keaden ───────────────────────────────────────── */
+/*   Olive-brown body, vivid orange-gold frill flash, prehistoric scales      */
+.character-card[data-animal="frilled-lizard"] {
+    background: linear-gradient(160deg, rgba(80,90,30,0.22) 0%, rgba(200,130,0,0.08) 60%, rgba(26,26,46,0.10) 100%);
+    border-color: #5a6a20;
+}
+.character-card[data-animal="frilled-lizard"]:hover,
+.character-card[data-animal="frilled-lizard"].active {
+    border-color: #c88a00;
+    box-shadow: 0 8px 28px rgba(200,130,0,0.40);
+    transform: translateY(-5px);
+}
+.character-card[data-animal="frilled-lizard"] .character-name {
+    color: #d4a832;
+}
+.character-card[data-animal="frilled-lizard"] .animal-badge {
+    background: linear-gradient(90deg, #5a6a20, #c88a00, #e05000);
+    color: #fff;
+}
+/* Scale-texture shimmer strip */
+.character-card[data-animal="frilled-lizard"]::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 4px;
+    background: repeating-linear-gradient(90deg,
+        #5a6a20 0px, #5a6a20 8px,
+        #c88a00 8px, #c88a00 14px,
+        #e05000 14px, #e05000 18px,
+        #5a6a20 18px, #5a6a20 26px);
+    border-radius: 0 0 10px 10px;
+}
+/* Frill-flash animation on hover */
+.character-card[data-animal="frilled-lizard"]:hover .animal-emoji {
+    animation: frill-flash 0.4s ease;
+}
+@keyframes frill-flash {
+    0%   { transform: scale(1) rotate(0deg); }
+    30%  { transform: scale(1.6) rotate(-15deg); }
+    60%  { transform: scale(1.8) rotate(10deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+.effects-display[data-animal="frilled-lizard"] {
+    border-color: #c88a00;
+    background: linear-gradient(160deg, rgba(80,90,20,0.14) 0%, rgba(26,26,46,0.95) 50%);
+}
+.effects-display[data-animal="frilled-lizard"] .effects-header {
+    color: #d4a832;
+    border-bottom-color: #c88a00;
+}
+.effects-display[data-animal="frilled-lizard"] .effect-item:hover {
+    border-left-color: #c88a00;
+}
+
+/* ── Animal badge & emoji ─────────────────────────────────────────────────── */
+.animal-badge {
+    display: inline-block;
+    font-size: 0.72em;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 1px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-top: 6px;
+    text-transform: uppercase;
+    opacity: 0.9;
+}
+
+.animal-emoji {
+    display: block;
+    font-size: 2.2em;
+    margin-bottom: 8px;
+    transition: transform 0.2s ease;
+}
+
+.character-card:hover .animal-emoji {
+    transform: scale(1.15);
+}
+
+/* ── Character name ───────────────────────────────────────────────────────── */
 .character-name {
+    font-family: 'Cinzel', serif;
     font-size: 1.8em;
-    color: #f0c674;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
     text-transform: uppercase;
     letter-spacing: 2px;
 }
@@ -73,13 +286,14 @@ h1 {
     font-size: 0.9em;
 }
 
+/* ── Effects display (base) ───────────────────────────────────────────────── */
 .effects-display {
     display: none;
-    background: rgba(0, 0, 0, 0.3);
     border: 2px solid #f0c674;
     border-radius: 12px;
     padding: 30px;
     margin-top: 20px;
+    background: rgba(0,0,0,0.3);
 }
 
 .effects-display.visible {
@@ -89,10 +303,11 @@ h1 {
 
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 .effects-header {
+    font-family: 'Cinzel', serif;
     font-size: 2em;
     color: #f0c674;
     margin-bottom: 25px;
@@ -101,8 +316,9 @@ h1 {
     padding-bottom: 15px;
 }
 
+/* ── Effect items ─────────────────────────────────────────────────────────── */
 .effect-item {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255,255,255,0.05);
     padding: 15px;
     margin-bottom: 12px;
     border-radius: 8px;
@@ -111,108 +327,65 @@ h1 {
 }
 
 .effect-item:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255,255,255,0.08);
     border-left-color: #f0c674;
 }
 
-.effect-item.negative {
-    border-left-color: #ef4444;
-}
-
-.effect-item.mixed {
-    border-left-color: #f59e0b;
-}
-
-.effect-item.positive {
-    border-left-color: #10b981;
-}
-
-.effect-item.powerful {
-    border-left-color: #8b5cf6;
-}
+.effect-item.negative  { border-left-color: #ef4444; }
+.effect-item.mixed     { border-left-color: #f59e0b; }
+.effect-item.positive  { border-left-color: #10b981; }
+.effect-item.powerful  { border-left-color: #8b5cf6; }
 
 .effect-item.disaster {
     border-left-color: #dc2626;
-    background: rgba(220, 38, 38, 0.1);
+    background: rgba(220,38,38,0.10);
 }
 
+/* Esoteric — unchanged from original */
 .effect-item.esoteric {
     position: relative;
     border-left-color: #8b5cf6;
-    background: linear-gradient(
-        135deg,
-        rgba(139, 92, 246, 0.05) 0%,
-        rgba(168, 85, 247, 0.15) 50%,
-        rgba(139, 92, 246, 0.05) 100%
-    );
+    background: linear-gradient(135deg,
+        rgba(139,92,246,0.05) 0%,
+        rgba(168,85,247,0.15) 50%,
+        rgba(139,92,246,0.05) 100%);
     overflow: hidden;
     animation: pulse-glow 3s ease-in-out infinite;
 }
-
 .effect-item.esoteric::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(168, 85, 247, 0.4),
-        rgba(217, 70, 239, 0.6),
-        rgba(168, 85, 247, 0.4),
-        transparent
-    );
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg,
+        transparent, rgba(168,85,247,0.4),
+        rgba(217,70,239,0.6), rgba(168,85,247,0.4), transparent);
     animation: shimmer 10s infinite;
 }
-
 .effect-item.esoteric::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 10px,
-        rgba(139, 92, 246, 0.1) 10px,
-        rgba(139, 92, 246, 0.1) 11px
-    );
+    background: repeating-linear-gradient(45deg,
+        transparent, transparent 10px,
+        rgba(139,92,246,0.1) 10px, rgba(139,92,246,0.1) 11px);
     animation: scan 8s linear infinite;
     pointer-events: none;
 }
-
 @keyframes shimmer {
-    0% {
-        left: -100%;
-    }
-    100% {
-        left: 200%;
-    }
+    0%   { left: -100%; }
+    100% { left: 200%; }
 }
-
 @keyframes pulse-glow {
-    0%, 100% {
-        box-shadow: 
-            inset 0 0 20px rgba(139, 92, 246, 0.2),
-            0 0 10px rgba(168, 85, 247, 0.1);
-    }
-    50% {
-        box-shadow: 
-            inset 0 0 30px rgba(168, 85, 247, 0.4),
-            0 0 20px rgba(217, 70, 239, 0.2);
-    }
+    0%,100% { box-shadow: inset 0 0 20px rgba(139,92,246,0.2), 0 0 10px rgba(168,85,247,0.1); }
+    50%     { box-shadow: inset 0 0 30px rgba(168,85,247,0.4), 0 0 20px rgba(217,70,239,0.2); }
 }
-
 @keyframes scan {
-    0% {
-        transform: translateY(-100%);
-    }
-    100% {
-        transform: translateY(100%);
-    }
+    0%   { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
 }
 
+/* ── Effect number badge ──────────────────────────────────────────────────── */
 .effect-number {
     display: inline-block;
     background: #4a5568;
@@ -223,6 +396,7 @@ h1 {
     margin-right: 10px;
     min-width: 35px;
     text-align: center;
+    font-family: 'Cinzel', serif;
 }
 
 .effect-description {
@@ -249,14 +423,13 @@ h1 {
     color: #8ab4f8;
     text-decoration: none;
     padding: 5px 12px;
-    background: rgba(138, 180, 248, 0.1);
+    background: rgba(138,180,248,0.10);
     border-radius: 4px;
     transition: all 0.2s ease;
     font-size: 0.9em;
 }
-
 .link-button:hover {
-    background: rgba(138, 180, 248, 0.2);
+    background: rgba(138,180,248,0.20);
     color: #fff;
 }
 
@@ -266,57 +439,54 @@ h1 {
     margin-top: 8px;
     font-size: 0.95em;
     padding: 8px;
-    background: rgba(245, 158, 11, 0.1);
+    background: rgba(245,158,11,0.10);
     border-radius: 4px;
 }
 
+/* ── Password prompt ──────────────────────────────────────────────────────── */
 .password-prompt {
     display: none;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0,0,0,0.3);
     border: 2px solid #8ab4f8;
     border-radius: 12px;
     padding: 30px;
     margin-top: 20px;
     text-align: center;
 }
-
 .password-prompt.visible {
     display: block;
     animation: fadeIn 0.5s ease;
 }
-
 .password-header {
+    font-family: 'Cinzel', serif;
     font-size: 1.5em;
     color: #8ab4f8;
     margin-bottom: 20px;
 }
-
 .password-input {
     width: 100%;
     max-width: 300px;
     padding: 12px;
     font-size: 1em;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255,255,255,0.10);
     border: 2px solid #4a5568;
     border-radius: 8px;
     color: #e8e8e8;
     margin-bottom: 15px;
     transition: all 0.3s ease;
+    font-family: 'Crimson Pro', serif;
 }
-
 .password-input:focus {
     outline: none;
     border-color: #8ab4f8;
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255,255,255,0.15);
 }
-
 .password-buttons {
     display: flex;
     gap: 10px;
     justify-content: center;
     margin-top: 15px;
 }
-
 .password-btn {
     padding: 10px 25px;
     font-size: 1em;
@@ -325,28 +495,12 @@ h1 {
     cursor: pointer;
     transition: all 0.3s ease;
     font-weight: bold;
+    font-family: 'Cinzel', serif;
 }
-
-.password-btn.verify {
-    background: #10b981;
-    color: white;
-}
-
-.password-btn.verify:hover {
-    background: #059669;
-    transform: translateY(-2px);
-}
-
-.password-btn.cancel {
-    background: #ef4444;
-    color: white;
-}
-
-.password-btn.cancel:hover {
-    background: #dc2626;
-    transform: translateY(-2px);
-}
-
+.password-btn.verify { background: #10b981; color: white; }
+.password-btn.verify:hover { background: #059669; transform: translateY(-2px); }
+.password-btn.cancel { background: #ef4444; color: white; }
+.password-btn.cancel:hover { background: #dc2626; transform: translateY(-2px); }
 .password-error {
     color: #ef4444;
     margin-top: 10px;
@@ -354,20 +508,18 @@ h1 {
     min-height: 20px;
 }
 
+/* ── Curse modal ──────────────────────────────────────────────────────────── */
 .curse-modal {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 1000;
     animation: fadeIn 0.3s ease;
 }
-
 .curse-modal-content {
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
     border: 2px solid #f59e0b;
@@ -376,21 +528,20 @@ h1 {
     width: 90%;
     max-height: 80vh;
     overflow-y: auto;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
 }
-
 .curse-modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px;
     border-bottom: 2px solid #f59e0b;
+    font-family: 'Cinzel', serif;
     font-size: 1.5em;
     color: #f0c674;
 }
-
 .curse-close-btn {
-    background:rgba(1, 1, 1, 0);
+    background: rgba(1,1,1,0);
     color: #d3d3d3;
     border: none;
     width: 35px;
@@ -399,11 +550,7 @@ h1 {
     cursor: pointer;
     transition: all 0.2s ease;
 }
-
-.curse-close-btn:hover {
-    transform: scale(1.2);
-}
-
+.curse-close-btn:hover { transform: scale(1.2); }
 .curse-modal-body {
     padding: 25px;
     color: #d1d5db;

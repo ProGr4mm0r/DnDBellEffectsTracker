@@ -1,0 +1,103 @@
+{
+  "lim": {
+    "name": "Lim",
+    "animal": "fox",
+    "animalEmoji": "🦊",
+    "password": "LimLovesDND",
+    "rolls": [
+      {
+        "num": 13,
+        "feat": "https://dnd5e.wikidot.com/feat:skilled",
+        "featName": "Skilled - Birdpipes, Bagpipes, Bowls",
+        "abilityLoss": "Sleight of Hand",
+        "lossAmount": "1"
+      },
+      {
+        "num": 13,
+        "feat": "https://dnd5e.wikidot.com/feat:skilled",
+        "featName": "Skilled - Clarinet, Carpenter's Tools, Cartographer's Tools",
+        "abilityLoss": "Stealth",
+        "lossAmount": "1"
+      },
+      { "num": 12 },
+      { "num": 24 },
+      { "num": 9, "ageMod": 5 },
+      { "num": 37 },
+      { "num": 68 },
+      { "num": 98 },
+      { "num": 51 },
+      { "num": 43 }
+    ]
+  },
+  "imp": {
+    "name": "Imp",
+    "animal": "king-snake",
+    "animalEmoji": "🐍",
+    "password": "ImpTheGreat",
+    "rolls": [
+      { "num": 10 },
+      { "num": 19 },
+      { "num": 7 },
+      { "num": 16 },
+      { "num": 11 },
+      { "num": 24 },
+      { "num": 11 },
+      { "num": 9, "ageMod": 5 },
+      { "num": 68 },
+      { "num": 61 },
+      { "num": 84 },
+      { "num": 62 },
+      { "num": 86 },
+      { "num": 61 },
+      { "num": 4 },
+      { "num": 65 },
+      { "num": 29 },
+      { "num": 21 }
+    ]
+  },
+  "crava": {
+    "name": "Crava",
+    "animal": "chickadee",
+    "animalEmoji": "🐦",
+    "password": "CravaIsTheBest",
+    "rolls": [
+      { "num": 19 },
+      { "num": 19 },
+      { "num": 20 },
+      { "num": 28, "curseNum": 1 },
+      { "num": 8 },
+      { "num": 70, "skillLoss": "Intimidation", "skillGain": "Acrobatics" },
+      { "num": 51 },
+      { "num": 41 },
+      { "num": 40 },
+      { "num": 40 },
+      { "num": 91 },
+      { "num": 16 },
+      { "num": 95 }
+    ]
+  },
+  "keaden": {
+    "name": "Keaden",
+    "animal": "frilled-lizard",
+    "animalEmoji": "🦎",
+    "password": "DragonSlayer99",
+    "rolls": [
+      { "num": 23, "spell": "https://www.dndbeyond.com/spells/2299-web", "spellName": "Web" },
+      { "num": 26, "abilityGain": "Religion" },
+      { "num": 19 },
+      { "num": 19 },
+      { "num": 21 },
+      { "num": 18 },
+      { "num": 27 },
+      { "num": 27 },
+      { "num": 22 },
+      { "num": 92 },
+      { "num": 19 },
+      { "num": 9 },
+      { "num": 40 },
+      { "num": 22 },
+      { "num": 22 },
+      { "num": 95 }
+    ]
+  }
+}
