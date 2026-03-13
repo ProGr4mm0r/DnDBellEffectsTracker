@@ -18,7 +18,6 @@ async function loadData() {
 }
 
 // ── Stack calc evaluation ─────────────────────────────────────────────────────
-// Template strings in JSON use {expr} syntax; we eval with `count` in scope.
 
 function evalStackCalc(template, count) {
     if (!template) return null;
@@ -130,6 +129,22 @@ function cancelPassword() {
 
 // ── Effects display ───────────────────────────────────────────────────────────
 
+function buildAnimalAbilityBlock(char) {
+    if (!char.animalAbility) return '';
+    return `
+        <div class="animal-ability-block" data-animal="${char.animal || ''}">
+            <div class="animal-ability-header">
+                <span class="animal-ability-emoji">${char.animalEmoji || '🐾'}</span>
+                <div>
+                    <div class="animal-ability-name">${char.animalAbilityName || 'Animal Ability'}</div>
+                    ${char.animalAbilityUsage ? `<div class="animal-ability-usage">${char.animalAbilityUsage}</div>` : ''}
+                </div>
+            </div>
+            <div class="animal-ability-text">${char.animalAbility}</div>
+        </div>
+    `;
+}
+
 function displayEffects(characterKey, e) {
     document.querySelectorAll('.effects-display').forEach(el => el.remove());
     document.querySelectorAll('.character-card').forEach(el => el.classList.remove('active'));
@@ -142,13 +157,13 @@ function displayEffects(characterKey, e) {
 
     const display = document.createElement('div');
     display.className = 'effects-display visible';
-    // Apply animal theme to the effects panel too
     if (char.animal) display.dataset.animal = char.animal;
 
     display.innerHTML = `
         <div class="effects-header">
             ${char.animalEmoji || ''} ${char.name.toUpperCase()}'s Bell Effects
         </div>
+        ${buildAnimalAbilityBlock(char)}
     `;
 
     Object.keys(counts).sort((a, b) => Number(a) - Number(b)).forEach(num => {

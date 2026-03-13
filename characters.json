@@ -3,6 +3,9 @@
     "name": "Lim",
     "animal": "fox",
     "animalEmoji": "🦊",
+    "animalAbilityName": "Pack Hunter",
+    "animalAbilityUsage": "Once per turn",
+    "animalAbility": "When you deal damage to a creature that is adjacent to an ally, OR has not taken a turn yet in combat, you deal an extra 1d6 damage.",
     "password": "LimLovesDND",
     "rolls": [
       {
@@ -33,6 +36,9 @@
     "name": "Imp",
     "animal": "king-snake",
     "animalEmoji": "🐍",
+    "animalAbilityName": "Venom Immunity",
+    "animalAbilityUsage": "Reaction — PB/Long Rest",
+    "animalAbility": "When you take poison damage or are subjected to the poisoned condition: you take no damage, you are not poisoned, and you gain advantage on your next attack against the source before the end of your next turn. Additionally, you have resistance to poison damage at all times.",
     "password": "ImpTheGreat",
     "rolls": [
       { "num": 10 },
@@ -59,6 +65,9 @@
     "name": "Crava",
     "animal": "chickadee",
     "animalEmoji": "🐦",
+    "animalAbilityName": "Sharp Call",
+    "animalAbilityUsage": "Reaction — PB/Long Rest",
+    "animalAbility": "When a creature within 60 ft makes an attack roll, you call out — choose one: impose disadvantage on the attack, OR grant +4 AC to the target against that attack.",
     "password": "CravaIsTheBest",
     "rolls": [
       { "num": 19 },
@@ -80,6 +89,9 @@
     "name": "Keaden",
     "animal": "frilled-lizard",
     "animalEmoji": "🦎",
+    "animalAbilityName": "Threat Display",
+    "animalAbilityUsage": "Bonus Action — PB/Long Rest",
+    "animalAbility": "Creatures of your choice within 10 ft must make a WIS save (DC = 8 + PB + CON or CHA). On fail: Frightened of you until end of your next turn. On success: disadvantage on their next attack against you before the end of their next turn. Additionally, you gain proficiency in Intimidation (or expertise if already proficient).",
     "password": "DragonSlayer99",
     "rolls": [
       { "num": 23, "spell": "https://www.dndbeyond.com/spells/2299-web", "spellName": "Web" },
